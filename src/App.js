@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import './views/SettingPlayersView'
+import { GameProvider } from './GameContext'
+import CategoriesView from './views/CategoriesView';
+import PlayingView from './views/PlayingView/PlayingView';
+import SettingPlayersView from './views/SettingPlayersView';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="drink-ring">
+      <h1 className='drink-ring__title'>Drink Ring</h1>
+      <GameProvider>
+        <SettingPlayersView />
+        <CategoriesView />
+        <PlayingView />
+      </GameProvider>
     </div>
   );
 }

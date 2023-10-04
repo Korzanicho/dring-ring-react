@@ -1,0 +1,10 @@
+@import './variables.scss';
+
+.categories-list {
+	&__card {
+		&--active.card {
+			background-color: $color-accent;
+			border: 2px solid $color-text;
+		}
+	}
+}

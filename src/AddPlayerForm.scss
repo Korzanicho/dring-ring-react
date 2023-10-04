@@ -1,0 +1,7 @@
+@import './variables.scss';
+
+.add-player-form {
+	&__label {
+		color: $color-text;
+	}
+}

@@ -1,0 +1,52 @@
+@import './variables.scss';
+
+@font-face {
+  font-family: 'Dela Gothic One';
+  src: local('Dela Gothic One'), url(./fonts/DelaGothicOne-Regular.ttf) format('ttf');
+}
+
+.drink-ring {
+  padding: 15px;
+  min-height: 100vh;
+  background-color: $color-bg;
+  font-family: 'Dela Gothic One', cursive;
+
+  &__title {
+    font-size: 30px;
+    color: $color-text;
+    text-align: center;
+  }
+}
+
+// General
+* {
+  box-sizing: border-box;
+}
+
+.color-bg {
+  background-color: $color-bg;
+}
+
+.color-accent {
+  background-color: $color-accent;
+}
+
+.color-text {
+  color: $color-text;
+}
+
+.color-text-light {
+  color: $color-text-light;
+}
+
+.color-text-dark {
+  color: $color-text-dark;
+}
+
+// Buttons
+
+.drink-ring {
+  .btn-primary {
+    background-color: $color-accent;
+  }
+}
