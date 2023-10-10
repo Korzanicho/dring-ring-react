@@ -6,21 +6,26 @@ export const GameProvider = ({ children }) => {
   const [game, setGame] = useState({
 		players: [],
     challenges: [],
+    selectedPlayer: null,
     selectedCategories: [],
     view: 'settingPlayers'
 	});
 
-  const getRandomPlayers = quantity => {
-    // withouth repeating, withouth mutating the original array
-
-
+  const getRandomPlayers = (quantity, exceptPlayers = []) => {
     const randomPlayers = [];
-    const playerToUse = [...game.players];
+    const playersToUse = [...game.players];
+
+    exceptPlayers.forEach((exceptPlayer) => {
+      const index = playersToUse.findIndex((player) => player.name === exceptPlayer.name);
+      if (index !== -1) {
+        playersToUse.splice(index, 1);
+      }
+    });
 
     do {
-      const randomIndex = Math.floor(Math.random() * playerToUse.length);
-      randomPlayers.push(playerToUse[randomIndex]);
-      playerToUse.splice(randomIndex, 1);
+      const randomIndex = Math.floor(Math.random() * playersToUse.length);
+      randomPlayers.push(playersToUse[randomIndex]);
+      playersToUse.splice(randomIndex, 1);
     } while (randomPlayers.length < quantity);
 
     return randomPlayers;
@@ -29,12 +34,10 @@ export const GameProvider = ({ children }) => {
   const resolveTemplateTags = (text) => {
     let newText = text;
 
-    const users = getRandomPlayers(2);
-
-    console.log('users', users);
+    const users = getRandomPlayers(1, game.selectedPlayer !== null ? [game.selectedPlayer] : []);
 
     const tags = {
-      name1: users[0].name,
+      name1: game.selectedPlayer?.name,
       name2: users[1].name,
       quantity: Math.floor(Math.random() * 5) + 1,
     }
@@ -86,7 +89,14 @@ export const GameProvider = ({ children }) => {
             title: resolveTemplateTags(challenge.title),
             body: resolveTemplateTags(challenge.body)
           }
-        }
+        },
+        getSelectedPlayer: () => game.selectedPlayer,
+        setSelectedPlayer: (player) => setGame((prevState) => {
+          return {
+            ...prevState,
+            selectedPlayer: player
+          }
+        }),
       }}
     >
       {children}

@@ -25,7 +25,7 @@ function CategoriesView() {
 
   const handleChangeView = () => {
 		fetchChallenges().then(() => {
-			setView('playing');
+			setView('wheel');
 		});
   }
 

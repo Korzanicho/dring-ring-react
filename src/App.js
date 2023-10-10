@@ -3,6 +3,7 @@ import './views/SettingPlayersView'
 import { GameProvider } from './GameContext'
 import CategoriesView from './views/CategoriesView';
 import PlayingView from './views/PlayingView/PlayingView';
+import WheelView from './views/WheelView/WheelView';
 import SettingPlayersView from './views/SettingPlayersView';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <GameProvider>
         <SettingPlayersView />
         <CategoriesView />
+        <WheelView />
         <PlayingView />
       </GameProvider>
     </div>

@@ -2,13 +2,13 @@ import './PlayingView.scss';
 import { useEffect, useState } from 'react';
 import { useGame } from '../../GameContext';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import BackButton from '../../components/BackButton/BackButton';
 
 function PlayingView() {
-	const { getView, getRandomChallenge } = useGame();
+	const { getView, getRandomChallenge, setView } = useGame();
 
 	const [challenge, setChallenge] = useState({});
-
-	// useEffect only runs once when getView() === 'playing'
 
 	useEffect(() => {
 		if (getView() === 'playing') {
@@ -22,20 +22,25 @@ function PlayingView() {
 
 	  return getView() === 'playing' ? (
     <div className="playing-view mt-3">
+			<BackButton view='categories' />
 
 			{challenge ? (
-				<div>
-					<h1 className="text-center">{challenge.title}</h1>
-					<p className="text-center">{challenge.body}</p>
-				</div>
+				<Card className='playing-view__card'>
+					<Card.Body>
+						<Card.Title className='playing-view__title' as="h2">{challenge.title}</Card.Title>
+						<Card.Text className='playing-view__body'>
+							{challenge.body}
+						</Card.Text>
+					</Card.Body>
+				</Card>
 			) : null}
 			
 			<Button
 				size="lg"
 				type="submit"
-				variant="primary"
-				onClick={handleGetRandomChallenge}
-				className="categories-view__play-btn"
+				variant="secondary"
+				onClick={() => setView('wheel')}
+				className="playing-view__play-btn"
 			>
 				Next
 			</Button> 
