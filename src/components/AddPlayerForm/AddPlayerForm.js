@@ -1,7 +1,7 @@
 import './AddPlayerForm.scss'
 import {useRef} from "react";
 import Form from 'react-bootstrap/Form';
-import { useGame } from './GameContext';
+import { useGame } from '../../Context/GameContext';
 import Button from 'react-bootstrap/Button';
 
 function AddPlayerForm() {

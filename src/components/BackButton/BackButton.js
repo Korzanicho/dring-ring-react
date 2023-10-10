@@ -1,5 +1,5 @@
 import './BackButton.scss'
-import { useGame } from '../../GameContext'
+import { useGame } from '../../Context/GameContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons'
 

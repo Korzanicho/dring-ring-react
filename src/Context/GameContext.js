@@ -38,7 +38,7 @@ export const GameProvider = ({ children }) => {
 
     const tags = {
       name1: game.selectedPlayer?.name,
-      name2: users[1].name,
+      name2: users[0].name,
       quantity: Math.floor(Math.random() * 5) + 1,
     }
 

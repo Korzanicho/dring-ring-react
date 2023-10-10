@@ -1,6 +1,6 @@
 import './PlayingView.scss';
 import { useEffect, useState } from 'react';
-import { useGame } from '../../GameContext';
+import { useGame } from '../../Context/GameContext';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import BackButton from '../../components/BackButton/BackButton';
@@ -20,7 +20,7 @@ function PlayingView() {
 		setChallenge(getRandomChallenge());
 	}
 
-	  return getView() === 'playing' ? (
+	return getView() === 'playing' ? (
     <div className="playing-view mt-3">
 			<BackButton view='categories' />
 

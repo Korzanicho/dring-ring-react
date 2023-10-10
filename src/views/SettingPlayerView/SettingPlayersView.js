@@ -1,8 +1,8 @@
-import PlayersList from '../PlayersList';
+import PlayersList from '../../components/PlayersList/PlayersList';
 import Button from 'react-bootstrap/Button';
-import AddPlayerForm from "../AddPlayerForm";
+import AddPlayerForm from "../../components/AddPlayerForm/AddPlayerForm";
 
-import { useGame } from '../GameContext';
+import { useGame } from '../../Context/GameContext';
 
 function SettingPlayersView() {
 	const { getView, setView } = useGame();

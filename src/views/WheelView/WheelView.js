@@ -1,6 +1,6 @@
 import './WheelView.scss';
-import { useEffect, useState } from 'react';
-import { useGame } from '../../GameContext';
+import { useState } from 'react';
+import { useGame } from '../../Context/GameContext';
 import Button from 'react-bootstrap/Button';
 import { Wheel } from 'react-custom-roulette'
 import BackButton from '../../components/BackButton/BackButton';
@@ -44,6 +44,8 @@ function WheelView() {
 			<BackButton view='categories' />
 			<Wheel
 				data={data}
+				innerBorderColor='red'
+				outerBorderColor='#f4a261'
 				mustStartSpinning={isSpinning}
 				prizeNumber={randomPlayerIndex}
 				onStopSpinning={handleStopSpinning}

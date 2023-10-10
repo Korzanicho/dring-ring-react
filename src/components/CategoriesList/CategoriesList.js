@@ -1,6 +1,6 @@
 import './CategoriesList.scss'
 import Card from 'react-bootstrap/Card';
-import { useGame } from './GameContext';
+import { useGame } from '../../Context/GameContext';
 import Stack from 'react-bootstrap/Stack';
 
 function CategoriesList(props) {

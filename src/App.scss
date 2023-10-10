@@ -1,8 +1,8 @@
-@import './variables.scss';
+@import './assets/styles/variables.scss';
 
 @font-face {
   font-family: 'Dela Gothic One';
-  src: local('Dela Gothic One'), url(./fonts/DelaGothicOne-Regular.ttf) format('ttf');
+  src: local('Dela Gothic One'), url(./assets/fonts/DelaGothicOne-Regular.ttf) format('ttf');
 }
 
 .drink-ring {
@@ -21,6 +21,15 @@
 // General
 * {
   box-sizing: border-box;
+}
+
+:root {
+  font-size: 16px;
+  --color-bg: $color-bg;
+  --color-accent: $color-accent;
+  --color-text: $color-text;
+  --color-text-light: $color-text-light;
+  --color-text-dark: $color-text-dark;
 }
 
 .color-bg {

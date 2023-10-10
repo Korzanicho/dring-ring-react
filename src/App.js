@@ -1,10 +1,10 @@
 import './App.scss';
-import './views/SettingPlayersView'
-import { GameProvider } from './GameContext'
-import CategoriesView from './views/CategoriesView';
+import './views/SettingPlayerView/SettingPlayersView'
+import { GameProvider } from './Context/GameContext'
+import CategoriesView from './views/CategoriesView/CategoriesView';
 import PlayingView from './views/PlayingView/PlayingView';
 import WheelView from './views/WheelView/WheelView';
-import SettingPlayersView from './views/SettingPlayersView';
+import SettingPlayersView from './views/SettingPlayerView/SettingPlayersView';
 
 function App() {
   return (
