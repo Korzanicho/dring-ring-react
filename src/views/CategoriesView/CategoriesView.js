@@ -1,5 +1,6 @@
 import axios from "axios"
 import './CategoriesView.scss';
+import buildApiUrl from '@/config/apiConfig';
 import { useGame } from '../../Context/GameContext';
 import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
@@ -32,9 +33,7 @@ function CategoriesView() {
 	const fetchCategories = async () => {
 		setLoading(true);
 		try {
-			const response = await axios.get(
-				`http://localhost/api/categories`
-			);
+			const response = await axios.get(buildApiUrl('categories'));
 			setCategories((prevState) => {
 				return {
 					...prevState,
