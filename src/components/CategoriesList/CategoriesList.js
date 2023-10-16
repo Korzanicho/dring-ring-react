@@ -1,7 +1,7 @@
 import './CategoriesList.scss'
 import Card from 'react-bootstrap/Card';
-import { useGame } from '../../Context/GameContext';
 import Stack from 'react-bootstrap/Stack';
+import { useGame } from '@/Context/GameContext';
 
 function CategoriesList(props) {
 	const { getSelectedCategories, setSelectedCategories } = useGame();

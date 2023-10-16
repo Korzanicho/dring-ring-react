@@ -1,6 +1,6 @@
 import './PlayersList.scss';
 import Card from 'react-bootstrap/Card';
-import { useGame } from '../../Context/GameContext';
+import { useGame } from '@/Context/GameContext';
 
 function PlayersList() {
 	const { getPlayers } = useGame();

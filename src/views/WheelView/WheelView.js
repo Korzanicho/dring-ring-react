@@ -1,9 +1,9 @@
 import './WheelView.scss';
 import { useState } from 'react';
-import { useGame } from '../../Context/GameContext';
 import Button from 'react-bootstrap/Button';
 import { Wheel } from 'react-custom-roulette'
-import BackButton from '../../components/BackButton/BackButton';
+import { useGame } from '@/Context/GameContext';
+import BackButton from '@/components/BackButton/BackButton';
 
 function WheelView() {
 	const { getView, getPlayers, setView, setSelectedPlayer, getSelectedPlayer } = useGame();

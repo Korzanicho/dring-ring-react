@@ -1,10 +1,10 @@
 import axios from "axios"
 import './CategoriesView.scss';
 import buildApiUrl from '@/config/apiConfig';
-import { useGame } from '../../Context/GameContext';
+import { useGame } from '@/Context/GameContext';
 import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
-import CategoriesList from '../../components/CategoriesList/CategoriesList';
+import CategoriesList from '@/components/CategoriesList/CategoriesList';
 
 function CategoriesView() {
 	const { getView, setView, getSelectedCategories, setChallenges } = useGame();

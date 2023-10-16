@@ -1,9 +1,10 @@
 import './PlayingView.scss';
 import { useEffect, useState } from 'react';
-import { useGame } from '../../Context/GameContext';
-import Button from 'react-bootstrap/Button';
+import { useGame } from '@/Context/GameContext';
+
 import Card from 'react-bootstrap/Card';
-import BackButton from '../../components/BackButton/BackButton';
+import Button from 'react-bootstrap/Button';
+import BackButton from '@/components/BackButton/BackButton';
 
 function PlayingView() {
 	const { getView, getRandomChallenge, setView } = useGame();
