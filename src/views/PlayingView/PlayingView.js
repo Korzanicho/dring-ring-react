@@ -2,7 +2,6 @@ import './PlayingView.scss';
 import { useEffect, useState } from 'react';
 import { useGame } from '@/Context/GameContext';
 
-import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import BackButton from '@/components/BackButton/BackButton';
 import ChallengeDefault from '@/components/Challenges/ChallengeDefault/ChallengeDefault';
@@ -16,6 +15,7 @@ function PlayingView() {
 		if (getView() === 'playing') {
 			handleGetRandomChallenge()
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [getView]);
 
 	const handleGetRandomChallenge = () => {

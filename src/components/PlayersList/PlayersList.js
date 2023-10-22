@@ -12,6 +12,7 @@ function PlayersList() {
 		if (players.length) {
 			setPlayers(players);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
