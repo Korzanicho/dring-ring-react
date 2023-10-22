@@ -53,13 +53,37 @@ export const GameProvider = ({ children }) => {
     <GameContext.Provider
       value={{
         game,
-        // setTheme: () => setTheme(theme === "light" ? "dark" : "light"),
-        addPlayer: (playerName) => setGame((prevState) => {
-					return {
-						...prevState,
-						players: [...prevState.players, { name: playerName }]
-					}
-				}),
+        addPlayer: (playerName) => {
+          setGame((prevState) => {
+            const newState = {
+              ...prevState,
+              players: [...prevState.players, { name: playerName }]
+            }
+
+            localStorage.setItem('players', JSON.stringify(newState.players));
+
+            return newState;
+          });
+
+        },
+        removePlayer: (playerName) => {
+          setGame((prevState) => {
+            const newState = {
+              ...prevState,
+              players: prevState.players.filter((player) => player.name !== playerName)
+            }
+
+            localStorage.setItem('players', JSON.stringify(newState.players));
+
+            return newState;
+          });
+        },
+        setPlayers: (players) => setGame((prevState) => {
+          return {
+            ...prevState,
+            players
+          }}
+        ),
         getPlayers: () => game.players,
         getView: () => game.view,
         setView: (view) => setGame((prevState) => {

@@ -1,0 +1,15 @@
+.challenge-default {
+	&__card {
+		margin-top: 150px;
+	}
+
+	&__title {
+		font-size: 30px;
+		color: $color-text;
+		text-align: center;
+	}
+
+	&__body {
+		font-size: 1.5rem;
+	}
+}

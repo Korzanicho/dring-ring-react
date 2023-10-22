@@ -1,9 +1,9 @@
 import axios from "axios"
 import './CategoriesView.scss';
-import buildApiUrl from '@/config/apiConfig';
-import { useGame } from '@/Context/GameContext';
 import Button from 'react-bootstrap/Button';
+import buildApiUrl from '@/config/apiConfig';
 import { useEffect, useState } from 'react';
+import { useGame } from '@/Context/GameContext';
 import CategoriesList from '@/components/CategoriesList/CategoriesList';
 
 function CategoriesView() {
@@ -56,7 +56,7 @@ function CategoriesView() {
 	const fetchChallenges = async () => {
 		try {
 			const response = await axios.get(
-				`http://localhost/api/challenges`,
+				buildApiUrl('challenges'),
 				{
 					params: {
 						categories: getSelectedCategories().map((category) => category.id).join(',')

@@ -5,6 +5,7 @@ import { useGame } from '@/Context/GameContext';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import BackButton from '@/components/BackButton/BackButton';
+import ChallengeDefault from '@/components/Challenges/ChallengeDefault/ChallengeDefault';
 
 function PlayingView() {
 	const { getView, getRandomChallenge, setView } = useGame();
@@ -25,15 +26,8 @@ function PlayingView() {
     <div className="playing-view mt-3">
 			<BackButton view='categories' />
 
-			{challenge ? (
-				<Card className='playing-view__card'>
-					<Card.Body>
-						<Card.Title className='playing-view__title' as="h2">{challenge.title}</Card.Title>
-						<Card.Text className='playing-view__body'>
-							{challenge.body}
-						</Card.Text>
-					</Card.Body>
-				</Card>
+			{challenge.type.name === 'default' ? (
+				<ChallengeDefault challenge={challenge} />
 			) : null}
 			
 			<Button
