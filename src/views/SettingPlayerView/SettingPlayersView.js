@@ -16,7 +16,13 @@ function SettingPlayersView() {
 			<AddPlayerForm />
 			<PlayersList className="mt-3" />
 			<div className='d-flex justify-content-center'>
-				<Button variant="primary" type="submit" onClick={handleChangeView} className="mt-3 color-bg">
+				<Button
+					size="lg"
+					type="submit"
+					variant="primary"
+					className="mt-3 color-bg"
+					onClick={handleChangeView}
+				>
 					Next
 				</Button> 
 			</div>
