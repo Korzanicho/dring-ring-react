@@ -105,9 +105,16 @@ export const GameProvider = ({ children }) => {
             challenges
           }
         }),
-        getRandomChallenge: () => {
-          const randomIndex = Math.floor(Math.random() * game.challenges.length);
-          const challenge = game.challenges[randomIndex];
+        getRandomChallenge: (challengesTypes) => {
+          let filteredChallenges = game.challenges;
+          if (challengesTypes.length) {
+            filteredChallenges = game.challenges.filter((challenge) => {
+              return challengesTypes.includes(challenge.type.name);
+            });
+          }
+
+          const randomIndex = Math.floor(Math.random() * filteredChallenges.length);
+          const challenge = filteredChallenges[randomIndex];
           return {
             ...challenge,
             title: resolveTemplateTags(challenge.title),

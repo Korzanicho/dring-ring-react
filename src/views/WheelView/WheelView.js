@@ -18,9 +18,7 @@ function WheelView() {
 		}
 	});
 
-	// data.push({
-	// 	option: 'Wszyscy'
-	// })
+	data.push({ option: 'Wszyscy' })
 
 	const randomPlayerIndex = Math.floor(Math.random() * data.length);
 
@@ -28,7 +26,11 @@ function WheelView() {
 	const [isSelected, setIsSelected] = useState(false);
 
 	const handleStopSpinning = () => {
-		setSelectedPlayer(getPlayers()[randomPlayerIndex]);
+		if (data[randomPlayerIndex].option === 'Wszyscy') {
+			setSelectedPlayer({ name: 'Wszyscy' });
+		} else {
+			setSelectedPlayer(getPlayers()[randomPlayerIndex]);
+		}
 		setIsSelected(true);
 		setIsSpinning(false);
 

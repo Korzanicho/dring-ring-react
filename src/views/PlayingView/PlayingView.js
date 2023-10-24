@@ -7,7 +7,7 @@ import BackButton from '@/components/BackButton/BackButton';
 import ChallengeDefault from '@/components/Challenges/ChallengeDefault/ChallengeDefault';
 
 function PlayingView() {
-	const { getView, getRandomChallenge, setView } = useGame();
+	const { getView, getRandomChallenge, setView, getSelectedPlayer } = useGame();
 
 	const [challenge, setChallenge] = useState({});
 
@@ -19,14 +19,14 @@ function PlayingView() {
 	}, [getView]);
 
 	const handleGetRandomChallenge = () => {
-		setChallenge(getRandomChallenge());
+		getSelectedPlayer() === 'Wszyscy' ? setChallenge(getRandomChallenge(['all'])) : setChallenge(getRandomChallenge([]));
 	}
 
 	return getView() === 'playing' ? (
     <div className="playing-view mt-3">
 			<BackButton view='categories' />
 
-			{challenge.type.name === 'default' ? (
+			{challenge.type && (challenge.type.name === 'default' || challenge.type.name === 'all') ? (
 				<ChallengeDefault challenge={challenge} />
 			) : null}
 			
