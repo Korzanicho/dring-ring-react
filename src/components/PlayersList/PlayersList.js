@@ -9,7 +9,7 @@ function PlayersList() {
 
 	useEffect(() => {
 		const players = JSON.parse(localStorage.getItem('players'));
-		if (players.length) {
+		if (players && players.length) {
 			setPlayers(players);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
