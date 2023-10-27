@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import buildApiUrl from '@/config/apiConfig';
 import { useEffect, useState } from 'react';
 import { useGame } from '@/Context/GameContext';
+import TheButton from '@/components/TheButton/TheButton';
+import BackButton from '@/components/BackButton/BackButton';
 import CategoriesList from '@/components/CategoriesList/CategoriesList';
 
 function CategoriesView() {
@@ -77,6 +79,7 @@ function CategoriesView() {
 
   return getView() === 'categories' ? (
     <div className="categories-view mt-3">
+			<BackButton view='settingPlayers' />
 			<div className="categories-view__center text-center">
 				{categories.isLoading ? <p>Ładowanie...</p> : null}
 				{categories.isError && !categories.isLoading && !categories.list.length ? (
@@ -89,17 +92,15 @@ function CategoriesView() {
 					</div>
 				) : null}
 			</div>
+			<h2 className="categories-view__title">Wybierz Kategorie</h2>
 			<CategoriesList categories={categories.list} />
-			<Button
-				size="lg"
-				type="submit"
-				variant="primary"
+			<TheButton
 				onClick={handleChangeView}
 				className="categories-view__play-btn"
 				disabled={!getSelectedCategories().length}
 			>
-				Play
-			</Button> 
+				GRAJ
+			</TheButton> 
     </div>
   ) : null;
 }

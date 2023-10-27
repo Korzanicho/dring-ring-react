@@ -1,4 +1,6 @@
 import './AddPlayerForm.scss'
+import iconAddPlayer from '@/assets/images/icon-add-player.svg'
+
 import {useRef} from "react";
 import { useGame } from '@/Context/GameContext';
 
@@ -17,17 +19,20 @@ function AddPlayerForm() {
 
   return (
     <div className="add-player-form">
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Label className="add-player-form__label">Name</Form.Label>
-          <Form.Control type="text" placeholder="Enter name" ref={inputRef} />
-        </Form.Group>
-        <div className="d-flex justify-content-center">
-          <Button variant="primary" type="submit" className="mb-3">
-            Add Player
+      <Form onSubmit={handleSubmit} className='mb-4'>
+        <div className='add-player-form__wrapper'>
+          <Form.Control
+            type="text"
+            ref={inputRef}
+            placeholder="Dodaj gracza..."
+            className="add-player-form__input"
+          />
+          <Button variant="" type="submit" className="add-player-form__btn" title="Dodaj gracza" >
+            <img src={iconAddPlayer} alt="Dodaj" />
           </Button>
         </div>
       </Form>
+      <div className='add-player-form__divider mb-4'></div>
     </div>
   );
 }

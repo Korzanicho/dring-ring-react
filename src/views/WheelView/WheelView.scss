@@ -1,14 +1,14 @@
 // @import '../../variables.scss';
-@import '../../assets/styles/variables.scss';
+@import '@/assets/styles/variables.scss';
 
 .wheel-view {
 	&__selected {
 		inset: 0;
-		width: 0;
-		opacity: 0;
-		left: -100px;
+		width: 100%;
+		opacity: 1;
+		left: -100%;
 		display: flex;
-		font-size: 6rem;
+		font-size: 2rem;
 		color:$color-accent;
 		position: absolute;
 		align-items: center;
@@ -24,11 +24,12 @@
 		}
 	}
 
-	&__btn {
-		left: 50%;
-		bottom: 10vh;
-		position: absolute;
-		transform: translateX(-50%);
-		background-color: $color-text;
+	&__wheel {
+		margin-top: 30px;
+		margin-left: 15px;
+		transition: all 0.5s ease-in-out;
+		&--hidden {
+			opacity: 0;
+		}
 	}
 }

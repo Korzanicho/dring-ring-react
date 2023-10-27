@@ -31,15 +31,20 @@ export const GameProvider = ({ children }) => {
     return randomPlayers;
   }
 
+  const htmlEntities = (str) => {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
   const resolveTemplateTags = (text) => {
     let newText = text;
+    newText = htmlEntities(newText);
 
     const users = getRandomPlayers(1, game.selectedPlayer !== null ? [game.selectedPlayer] : []);
 
     const tags = {
-      name1: game.selectedPlayer?.name,
-      name2: users[0].name,
-      quantity: Math.floor(Math.random() * 5) + 1,
+      name1: `<span style="color: var(--color-text)">${game.selectedPlayer?.name}</span>`,
+      name2: `<span style="color: var(--color-text)">${users[0].name}</span>`,
+      quantity: `<span style="color: var(--color-text)">${Math.floor(Math.random() * 5) + 1}</span>`,
     }
 
     Object.keys(tags).forEach((tag) => {

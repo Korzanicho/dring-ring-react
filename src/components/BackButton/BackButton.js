@@ -1,16 +1,15 @@
 import './BackButton.scss'
-import { useGame } from '@/Context/GameContext'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { useGame } from '@/Context/GameContext';
+import iconArrowLeft from '@/assets/images/icon-arrow-left.svg';
 
 function BackButton(props) {
 	const { setView } = useGame();
 
 	return (
-		<FontAwesomeIcon
-			size="2xl"
-			className="back-button "
-			icon={faCircleArrowLeft}
+		<img
+			alt="Powrót"
+			src={iconArrowLeft}
+			className="back-button"
 			onClick={() => setView(props.view)}
 		/>
 	);

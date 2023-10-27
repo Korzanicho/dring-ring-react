@@ -22,7 +22,7 @@ function CategoriesList(props) {
 		<div className="categories-list">
 			{props.categories.map((category) => (
 				<Stack gap={3} key={category.id}>
-					<Card
+					<div
 						onClick={() => handleCategoryClick(category)}
 						className={[
 							'mb-2',
@@ -31,8 +31,8 @@ function CategoriesList(props) {
 						].join(' ')
 						}
 					>
-						<Card.Body>{category.name}</Card.Body>
-					</Card>
+						<span>{category.name}</span>
+					</div>
 				</Stack>
 			))}
 		</div>

@@ -2,7 +2,7 @@ import './PlayingView.scss';
 import { useEffect, useState } from 'react';
 import { useGame } from '@/Context/GameContext';
 
-import Button from 'react-bootstrap/Button';
+import TheButton from '@/components/TheButton/TheButton';
 import BackButton from '@/components/BackButton/BackButton';
 import ChallengeDefault from '@/components/Challenges/ChallengeDefault/ChallengeDefault';
 
@@ -19,7 +19,7 @@ function PlayingView() {
 	}, [getView]);
 
 	const handleGetRandomChallenge = () => {
-		getSelectedPlayer() === 'Wszyscy' ? setChallenge(getRandomChallenge(['all'])) : setChallenge(getRandomChallenge([]));
+		getSelectedPlayer().name === 'Wszyscy' ? setChallenge(getRandomChallenge(['all'])) : setChallenge(getRandomChallenge([]));
 	}
 
 	return getView() === 'playing' ? (
@@ -30,15 +30,13 @@ function PlayingView() {
 				<ChallengeDefault challenge={challenge} />
 			) : null}
 			
-			<Button
-				size="lg"
+			<TheButton
 				type="submit"
-				variant="secondary"
 				onClick={() => setView('wheel')}
 				className="playing-view__play-btn"
 			>
-				Next
-			</Button> 
+				DALEJ
+			</TheButton> 
     </div>
   ) : null;
 }

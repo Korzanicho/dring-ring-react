@@ -1,10 +1,17 @@
-@import '../../assets/styles/variables.scss';
+@import '@/assets/styles/variables.scss';
 
 .categories-list {
 	&__card {
-		&--active.card {
-			background-color: $color-accent;
-			border: 2px solid $color-text;
+		height: 52px;
+		display: flex;
+		padding: 0 15px;
+		font-size: 1.5rem;
+		border-radius: 10px;
+		align-items: center;
+		background-color: #FFFFFF;
+		justify-content: space-between;
+		&--active {
+			color: $color-text;
 		}
 	}
 }

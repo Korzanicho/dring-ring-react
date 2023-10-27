@@ -1,4 +1,4 @@
-import Button from 'react-bootstrap/Button';
+import TheButton from '@/components/TheButton/TheButton';
 import PlayersList from '@/components/PlayersList/PlayersList';
 import AddPlayerForm from "@/components/AddPlayerForm/AddPlayerForm";
 
@@ -15,17 +15,11 @@ function SettingPlayersView() {
     <div className="setting-player-view">
 			<AddPlayerForm />
 			<PlayersList className="mt-3" />
-			<div className='d-flex justify-content-center'>
-				<Button
-					size="lg"
-					type="submit"
-					variant="primary"
-					className="mt-3 color-bg"
-					onClick={handleChangeView}
-				>
-					Next
-				</Button> 
-			</div>
+			<TheButton
+				onClick={handleChangeView}
+			>
+				DALEJ
+			</TheButton>
     </div>
   ) : null;
 }

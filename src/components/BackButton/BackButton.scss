@@ -1,19 +1,9 @@
-@import '../../assets/styles/variables.scss';
+@import '@/assets/styles/variables.scss';
 
 .back-button {
-	color: $color-accent;
-	position: absolute;
 	top: 15px;
 	left: 10px;
-	cursor: pointer;
 	z-index: 1;
-	background: transparent;
-	border: none;
-	outline: none;
-	&:hover {
-		background: rgba(0, 0, 0, 0.1);
-	}
-	&:active {
-		background: rgba(0, 0, 0, 0.2);
-	}
+	cursor: pointer;
+	position: absolute;
 }

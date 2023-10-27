@@ -1,15 +1,13 @@
-import Card from 'react-bootstrap/Card';
+import './ChallengeDefault.scss';
 
 function ChallengeDefault ({ challenge }) {
 	return (
-		<Card className='challenge-default__card'>
-			<Card.Body>
-				<Card.Title className='challenge-default__title' as="h2">{challenge.title}</Card.Title>
-				<Card.Text className='challenge-default__body'>
-					{challenge.body}
-				</Card.Text>
-			</Card.Body>
-		</Card>
+		<div className='challenge-default'>
+			<h2 className='challenge-default__title'>{challenge.title}</h2>
+			<div className='challenge-default__card'>
+				<span dangerouslySetInnerHTML={{ __html: challenge.body }}></span>
+			</div>
+		</div>
 	)
 }
 
