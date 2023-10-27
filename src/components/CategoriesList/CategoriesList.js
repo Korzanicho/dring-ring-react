@@ -1,5 +1,4 @@
 import './CategoriesList.scss'
-import Card from 'react-bootstrap/Card';
 import Stack from 'react-bootstrap/Stack';
 import { useGame } from '@/Context/GameContext';
 
