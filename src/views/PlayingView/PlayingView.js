@@ -19,7 +19,7 @@ function PlayingView() {
 	}, [getView]);
 
 	const handleGetRandomChallenge = () => {
-		getSelectedPlayer().name === 'Wszyscy' ? setChallenge(getRandomChallenge(['all'])) : setChallenge(getRandomChallenge([]));
+		getSelectedPlayer().name === 'Wszyscy' ? setChallenge(getRandomChallenge(['all'])) : setChallenge(getRandomChallenge(['default']));
 	}
 
 	return getView() === 'playing' ? (

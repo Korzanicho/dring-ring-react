@@ -1,9 +1,11 @@
 .players-list {
 	gap: 20px;
 	display: flex;
+	max-height: 45vh;
+	overflow-y: auto;
 	flex-direction: column;
 	&__item {
-		width: 100%;
+		width: 98%;
 		height: 52px;
 		display: flex;
 		font-size: 1.5rem;

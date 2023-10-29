@@ -1,7 +1,13 @@
 @import '@/assets/styles/variables.scss';
 
 .categories-list {
+	gap: 20px;
+	display: flex;
+	max-height: 50vh;
+	overflow-y: auto;
+	flex-direction: column;
 	&__card {
+		width: 98%;
 		height: 52px;
 		display: flex;
 		padding: 0 15px;

@@ -52,13 +52,18 @@
   color: $color-text-dark;
 }
 
-// Buttons
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
 
-.drink-ring {
-  .btn-primary {
-    background-color: $color-accent;
-  }
-  .btn-secondary {
-    background-color: $color-text;
-  }
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $color-accent;
 }

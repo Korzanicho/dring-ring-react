@@ -20,19 +20,17 @@ function CategoriesList(props) {
   return (
 		<div className="categories-list">
 			{props.categories.map((category) => (
-				<Stack gap={3} key={category.id}>
-					<div
-						onClick={() => handleCategoryClick(category)}
-						className={[
-							'mb-2',
-							'categories-list__card',
-							getSelectedCategories().findIndex((selectedCategory) => selectedCategory.id === category.id) !== -1 ? 'categories-list__card--active' : ''
-						].join(' ')
-						}
-					>
-						<span>{category.name}</span>
-					</div>
-				</Stack>
+				<div
+					key={category.id}
+					onClick={() => handleCategoryClick(category)}
+					className={[
+						'categories-list__card',
+						getSelectedCategories().findIndex((selectedCategory) => selectedCategory.id === category.id) !== -1 ? 'categories-list__card--active' : ''
+					].join(' ')
+					}
+				>
+					<span>{category.name}</span>
+				</div>
 			))}
 		</div>
 	);
