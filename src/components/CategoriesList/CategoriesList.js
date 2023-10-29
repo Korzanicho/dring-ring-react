@@ -1,5 +1,4 @@
 import './CategoriesList.scss'
-import Stack from 'react-bootstrap/Stack';
 import { useGame } from '@/Context/GameContext';
 
 function CategoriesList(props) {
