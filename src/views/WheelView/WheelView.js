@@ -25,7 +25,7 @@ function WheelView() {
       setFixedWinner(wheelData[Math.floor(Math.random() * wheelData.length)]);
       hasStoppedManually.current = false;
     }
-  }, [isSpinning]);
+  }, [isSpinning, wheelData]);
 
   const startSpin = () => {
     setFixedWinner(null);
