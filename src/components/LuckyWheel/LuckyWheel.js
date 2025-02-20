@@ -15,12 +15,14 @@ const LuckyWheel = ({ players, fixedWinner, spinning, onFinish, initialPlayer })
       const initialAngle = getAngleForPlayer(initialPlayer);
       setAngle(initialAngle); // Ustaw początkowy kąt koła
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [players, initialPlayer]);
 
   useEffect(() => {
     if (spinning && !isSpinning) {
       spinWheel();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spinning]);
 
   const drawWheel = () => {
