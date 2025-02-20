@@ -1,0 +1,49 @@
+name: Deploy
+
+on:
+  pull_request:
+    branches:
+      - 'sit'
+    types:
+      - closed
+
+  push:
+    branches:
+      - 'sit'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: sit
+
+    env:
+      BASE_PATH: drink-ring-react
+
+    name: Build And Deploy
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build for production
+        run: npm run build
+
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          ssh-agent -a ~/.ssh/ssh-agent.sock > /dev/null
+          echo "${{ secrets.PRIVATE_KEY }}" | tr -d '\r' | ssh-add -
+          ssh-keyscan -H 146.59.87.169 >> ~/.ssh/known_hosts
+          chmod 700 ~/.ssh
+
+      - name: Upload project files
+        run: |
+          rsync -avz --delete ./build/ ciuser@146.59.87.169:/var/www/websites/sit/drink-ring/

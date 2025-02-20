@@ -39,16 +39,16 @@ export const GameProvider = ({ children }) => {
     let newText = text;
     newText = htmlEntities(newText);
 
-    const users = getRandomPlayers(1, game.selectedPlayer !== null ? [game.selectedPlayer] : []);
+    const randomPlayers = getRandomPlayers(1, game.selectedPlayer !== null ? [game.selectedPlayer] : []);
 
     const tags = {
       name1: `<span style="color: var(--color-text)">${game.selectedPlayer?.name}</span>`,
-      name2: `<span style="color: var(--color-text)">${users[0].name}</span>`,
+      name2: `<span style="color: var(--color-text)">${randomPlayers[0].name}</span>`,
       quantity: `<span style="color: var(--color-text)">${Math.floor(Math.random() * 5) + 1}</span>`,
     }
 
     Object.keys(tags).forEach((tag) => {
-      newText = newText.replace(`{${tag}}`, tags[tag]);
+      newText = newText.replaceAll(`{${tag}}`, tags[tag]);
     });
 
     return newText;
