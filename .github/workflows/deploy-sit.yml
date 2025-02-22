@@ -39,10 +39,12 @@ jobs:
       - name: Setup SSH Key
         run: |
           mkdir -p ~/.ssh
-          eval $(ssh-agent -s)  # Poprawne uruchomienie agenta
-          echo "${{ secrets.PRIVATE_KEY }}" | tr -d '\r' | ssh-add -
-          ssh-keyscan -H 146.59.87.169 >> ~/.ssh/known_hosts
           chmod 700 ~/.ssh
+          eval $(ssh-agent -s)
+          echo "${{ secrets.PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-add ~/.ssh/id_rsa
+          ssh-keyscan -H 146.59.87.169 >> ~/.ssh/known_hosts
 
       - name: Upload project files
         run: |
