@@ -39,7 +39,7 @@ jobs:
       - name: Setup SSH Key
         run: |
           mkdir -p ~/.ssh
-          ssh-agent -a ~/.ssh/ssh-agent.sock > /dev/null
+          eval $(ssh-agent -s)  # Poprawne uruchomienie agenta
           echo "${{ secrets.PRIVATE_KEY }}" | tr -d '\r' | ssh-add -
           ssh-keyscan -H 146.59.87.169 >> ~/.ssh/known_hosts
           chmod 700 ~/.ssh
