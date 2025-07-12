@@ -28,6 +28,11 @@
 		height: 1px;
 		border-top: 1px dashed  $color-text;
 	}
+
+	.btn:disabled {
+		background-color: $disabled-light;
+		border-color: $color-text;
+	}
 }
 
 .add-player-form__input.form-control::placeholder {

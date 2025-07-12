@@ -5,7 +5,7 @@ import AddPlayerForm from "@/components/AddPlayerForm/AddPlayerForm";
 import { useGame } from '@/Context/GameContext';
 
 function SettingPlayersView() {
-	const { getView, setView } = useGame();
+	const { getView, setView, getPlayers } = useGame();
 
   const handleChangeView = () => {
 		setView('categories');
@@ -17,6 +17,7 @@ function SettingPlayersView() {
 			<PlayersList className="mt-3" />
 			<TheButton
 				onClick={handleChangeView}
+				disabled={!getPlayers().length}
 			>
 				DALEJ
 			</TheButton>
