@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/dring-ring-react.iml" filepath="$PROJECT_DIR$/.idea/dring-ring-react.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../drink-ring-api-node/.idea/drink-ring-api-node.iml" filepath="$PROJECT_DIR$/../drink-ring-api-node/.idea/drink-ring-api-node.iml" />
     </modules>
   </component>
 </project>
