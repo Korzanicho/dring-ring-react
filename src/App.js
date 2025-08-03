@@ -1,7 +1,6 @@
 import './App.scss';
-import './views/SettingPlayerView/SettingPlayersView'
 
-import { GameProvider } from './Context/GameContext';
+import { AppProvider } from './Context/AppProvider';
 
 import WheelView from './views/WheelView/WheelView';
 import PlayingView from './views/PlayingView/PlayingView';
@@ -12,13 +11,13 @@ import SettingPlayersView from './views/SettingPlayerView/SettingPlayersView';
 function App() {
   return (
     <div className="drink-ring">
-      <GameProvider>
+      <AppProvider>
         <TheHeader />
         <SettingPlayersView />
         <CategoriesView />
         <WheelView />
         <PlayingView />
-      </GameProvider>
+      </AppProvider>
     </div>
   );
 }

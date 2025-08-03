@@ -1,9 +1,9 @@
 import './BackButton.scss'
-import { useGame } from '@/Context/GameContext';
+import { useGameState } from '@/Context/GameStateContext';
 import iconArrowLeft from '@/assets/images/icon-arrow-left.svg';
 
 function BackButton(props) {
-	const { setView } = useGame();
+	const { setView } = useGameState();
 
 	return (
 		<img

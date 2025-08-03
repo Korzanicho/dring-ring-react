@@ -1,19 +1,23 @@
 import './CategoriesList.scss'
-import { useGame } from '@/Context/GameContext';
+import { useCategories } from '@/Context/CategoriesContext';
 
 function CategoriesList(props) {
-	const { getSelectedCategories, setSelectedCategories } = useGame();
+	const { getSelectedCategories, setSelectedCategories } = useCategories();
 
 	const handleCategoryClick = (category) => {
 		const selectedCategories = getSelectedCategories();
 		const categoryIndex = selectedCategories.findIndex((selectedCategory) => selectedCategory.id === category.id);
+		
+		let newSelectedCategories;
 		if (categoryIndex === -1) {
-			selectedCategories.push(category);
+			// Add category
+			newSelectedCategories = [...selectedCategories, category];
 		} else {
-			selectedCategories.splice(categoryIndex, 1);
+			// Remove category
+			newSelectedCategories = selectedCategories.filter((_, index) => index !== categoryIndex);
 		}
 
-		setSelectedCategories(selectedCategories)
+		setSelectedCategories(newSelectedCategories);
 	}
 
   return (

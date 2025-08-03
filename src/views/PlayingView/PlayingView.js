@@ -1,12 +1,16 @@
 import './PlayingView.scss';
 import { useEffect, useState } from 'react';
-import { useGame } from '@/Context/GameContext';
+import { useGameState } from '@/Context/GameStateContext';
+import { useChallenges } from '@/Context/ChallengesContext';
+import { usePlayers } from '@/Context/PlayersContext';
 
 import { TheButton, BackButton } from '@/components';
 import ChallengeDefault from '@/features/challenges/ChallengeDefault/ChallengeDefault';
 
 function PlayingView() {
-	const { getView, getRandomChallenge, setView, getSelectedPlayer } = useGame();
+	const { getView, setView, getSelectedPlayer } = useGameState();
+	const { getRandomChallenge } = useChallenges();
+	const { getRandomPlayers } = usePlayers();
 
 	const [challenge, setChallenge] = useState({});
 
@@ -18,7 +22,9 @@ function PlayingView() {
 	}, [getView]);
 
 	const handleGetRandomChallenge = () => {
-		getSelectedPlayer().name === 'Wszyscy' ? setChallenge(getRandomChallenge(['all'])) : setChallenge(getRandomChallenge(['default']));
+		const selectedPlayer = getSelectedPlayer();
+		const challengeTypes = selectedPlayer?.name === 'Wszyscy' ? ['all'] : ['default'];
+		setChallenge(getRandomChallenge(challengeTypes, selectedPlayer, getRandomPlayers));
 	}
 
 	return getView() === 'playing' ? (

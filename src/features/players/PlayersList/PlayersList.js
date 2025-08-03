@@ -1,20 +1,12 @@
 import './PlayersList.scss';
 import iconTrash from '@/assets/images/icon-trash.svg';
 
-import { useEffect } from 'react';
+
 import Button from 'react-bootstrap/Button';
-import { useGame } from '@/Context/GameContext';
+import { usePlayers } from '@/Context/PlayersContext';
 
 function PlayersList() {
-	const { getPlayers, setPlayers, removePlayer } = useGame();
-
-	useEffect(() => {
-		const players = JSON.parse(localStorage.getItem('players'));
-		if (players && players.length) {
-			setPlayers(players);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	const { getPlayers, removePlayer } = usePlayers();
 
 	return (
 		<div className="players-list">

@@ -3,12 +3,16 @@ import './CategoriesView.scss';
 import Button from 'react-bootstrap/Button';
 import buildApiUrl from '@/config/apiConfig';
 import { useEffect, useState } from 'react';
-import { useGame } from '@/Context/GameContext';
+import { useGameState } from '@/Context/GameStateContext';
+import { useCategories } from '@/Context/CategoriesContext';
+import { useChallenges } from '@/Context/ChallengesContext';
 import { TheButton, BackButton } from '@/components';
 import CategoriesList from '@/features/categories/CategoriesList/CategoriesList';
 
 function CategoriesView() {
-	const { getView, setView, getSelectedCategories, setChallenges } = useGame();
+	const { getView, setView } = useGameState();
+	const { getSelectedCategories } = useCategories();
+	const { setChallenges } = useChallenges();
 
 	const [categories, setCategories] = useState({
 		list: [],

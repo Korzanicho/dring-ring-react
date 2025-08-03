@@ -2,13 +2,13 @@ import './AddPlayerForm.scss'
 import iconAddPlayer from '@/assets/images/icon-add-player.svg'
 
 import {useState} from "react";
-import { useGame } from '@/Context/GameContext';
+import { usePlayers } from '@/Context/PlayersContext';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 function AddPlayerForm() {
-  const { addPlayer, getPlayers } = useGame();
+  const { addPlayer, getPlayers } = usePlayers();
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e) => {

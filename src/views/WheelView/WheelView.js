@@ -1,14 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react';
 import './WheelView.scss';
 import LuckyWheel from "@/features/wheel/LuckyWheel/LuckyWheel";
-import { useGame } from '@/Context/GameContext';
+import { usePlayers } from '@/Context/PlayersContext';
+import { useGameState } from '@/Context/GameStateContext';
 import { TheButton, BackButton } from '@/components';
 
 function WheelView() {
-  const {
-    getView, getPlayers, setView, setSelectedPlayer,
-    getSelectedPlayer
-  } = useGame();
+  const { getView, setView, setSelectedPlayer, getSelectedPlayer } = useGameState();
+  const { getPlayers } = usePlayers();
 
   const wheelData = getPlayers().map((player) => player.name);
   wheelData.push('Wszyscy');

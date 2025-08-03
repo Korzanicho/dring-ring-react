@@ -2,10 +2,12 @@ import { TheButton } from '@/components';
 import PlayersList from '@/features/players/PlayersList/PlayersList';
 import AddPlayerForm from "@/features/players/AddPlayerForm/AddPlayerForm";
 
-import { useGame } from '@/Context/GameContext';
+import { usePlayers } from '@/Context/PlayersContext';
+import { useGameState } from '@/Context/GameStateContext';
 
 function SettingPlayersView() {
-	const { getView, setView, getPlayers } = useGame();
+	const { getView, setView } = useGameState();
+	const { getPlayers } = usePlayers();
 
   const handleChangeView = () => {
 		setView('categories');
