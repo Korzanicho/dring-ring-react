@@ -1,15 +1,35 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useReducer } from "react";
+import { categoriesReducer, CATEGORIES_ACTIONS } from './reducers/categoriesReducer';
 
 const CategoriesContext = createContext(undefined);
 
 export const CategoriesProvider = ({ children }) => {
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCategories, dispatch] = useReducer(categoriesReducer, []);
+
+  const setSelectedCategories = (categories) => {
+    dispatch({ type: CATEGORIES_ACTIONS.SET_SELECTED_CATEGORIES, payload: categories });
+  };
+
+  const addCategory = (category) => {
+    dispatch({ type: CATEGORIES_ACTIONS.ADD_CATEGORY, payload: category });
+  };
+
+  const removeCategory = (category) => {
+    dispatch({ type: CATEGORIES_ACTIONS.REMOVE_CATEGORY, payload: category });
+  };
+
+  const clearCategories = () => {
+    dispatch({ type: CATEGORIES_ACTIONS.CLEAR_CATEGORIES });
+  };
 
   return (
     <CategoriesContext.Provider
       value={{
         selectedCategories,
         setSelectedCategories,
+        addCategory,
+        removeCategory,
+        clearCategories,
         getSelectedCategories: () => selectedCategories,
       }}
     >

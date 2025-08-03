@@ -1,9 +1,10 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useReducer } from "react";
+import { challengesReducer, CHALLENGES_ACTIONS } from './reducers/challengesReducer';
 
 const ChallengesContext = createContext(undefined);
 
 export const ChallengesProvider = ({ children }) => {
-  const [challenges, setChallenges] = useState([]);
+  const [challenges, dispatch] = useReducer(challengesReducer, []);
 
   const htmlEntities = (str) => {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -44,6 +45,10 @@ export const ChallengesProvider = ({ children }) => {
       title: resolveTemplateTags(challenge.title, selectedPlayer, getRandomPlayers),
       body: resolveTemplateTags(challenge.body, selectedPlayer, getRandomPlayers)
     };
+  };
+
+  const setChallenges = (newChallenges) => {
+    dispatch({ type: CHALLENGES_ACTIONS.SET_CHALLENGES, payload: newChallenges });
   };
 
   return (

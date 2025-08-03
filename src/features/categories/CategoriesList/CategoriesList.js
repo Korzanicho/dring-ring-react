@@ -2,22 +2,14 @@ import './CategoriesList.scss'
 import { useCategories } from '@/Context/CategoriesContext';
 
 function CategoriesList(props) {
-	const { getSelectedCategories, setSelectedCategories } = useCategories();
+	const { getSelectedCategories, addCategory, removeCategory } = useCategories();
 
 	const handleCategoryClick = (category) => {
 		const selectedCategories = getSelectedCategories();
 		const categoryIndex = selectedCategories.findIndex((selectedCategory) => selectedCategory.id === category.id);
 		
-		let newSelectedCategories;
-		if (categoryIndex === -1) {
-			// Add category
-			newSelectedCategories = [...selectedCategories, category];
-		} else {
-			// Remove category
-			newSelectedCategories = selectedCategories.filter((_, index) => index !== categoryIndex);
-		}
-
-		setSelectedCategories(newSelectedCategories);
+		if (categoryIndex === -1) addCategory(category);
+		else removeCategory(category);
 	}
 
   return (

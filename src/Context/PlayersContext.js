@@ -1,28 +1,25 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
+import { playersReducer, PLAYERS_ACTIONS } from './reducers/playersReducer';
 
 const PlayersContext = createContext(undefined);
 
 export const PlayersProvider = ({ children }) => {
-  const [players, setPlayers] = useState([]);
+  const [players, dispatch] = useReducer(playersReducer, []);
 
   // Load players from localStorage on mount
   useEffect(() => {
     const savedPlayers = localStorage.getItem('players');
     if (savedPlayers) {
-      setPlayers(JSON.parse(savedPlayers));
+      dispatch({ type: PLAYERS_ACTIONS.LOAD_PLAYERS, payload: JSON.parse(savedPlayers) });
     }
   }, []);
 
   const addPlayer = (playerName) => {
-    const newPlayers = [...players, { name: playerName }];
-    setPlayers(newPlayers);
-    localStorage.setItem('players', JSON.stringify(newPlayers));
+    dispatch({ type: PLAYERS_ACTIONS.ADD_PLAYER, payload: playerName });
   };
 
   const removePlayer = (playerName) => {
-    const newPlayers = players.filter((player) => player.name !== playerName);
-    setPlayers(newPlayers);
-    localStorage.setItem('players', JSON.stringify(newPlayers));
+    dispatch({ type: PLAYERS_ACTIONS.REMOVE_PLAYER, payload: playerName });
   };
 
   const getRandomPlayers = (quantity, exceptPlayers = []) => {
@@ -45,12 +42,17 @@ export const PlayersProvider = ({ children }) => {
     return randomPlayers;
   };
 
+  const setPlayers = (newPlayers) => {
+    dispatch({ type: PLAYERS_ACTIONS.SET_PLAYERS, payload: newPlayers });
+  };
+
   return (
     <PlayersContext.Provider
       value={{
         players,
         addPlayer,
         removePlayer,
+        setPlayers,
         getRandomPlayers,
         getPlayers: () => players,
       }}

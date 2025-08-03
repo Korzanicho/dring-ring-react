@@ -1,20 +1,33 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useReducer } from "react";
+import { gameStateReducer, GAME_STATE_ACTIONS } from './reducers/gameStateReducer';
 
 const GameStateContext = createContext(undefined);
 
+const initialState = {
+  view: 'settingPlayers',
+  selectedPlayer: null
+};
+
 export const GameStateProvider = ({ children }) => {
-  const [view, setView] = useState('settingPlayers');
-  const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [state, dispatch] = useReducer(gameStateReducer, initialState);
+
+  const setView = (view) => {
+    dispatch({ type: GAME_STATE_ACTIONS.SET_VIEW, payload: view });
+  };
+
+  const setSelectedPlayer = (player) => {
+    dispatch({ type: GAME_STATE_ACTIONS.SET_SELECTED_PLAYER, payload: player });
+  };
 
   return (
     <GameStateContext.Provider
       value={{
-        view,
+        view: state.view,
         setView,
-        selectedPlayer,
+        selectedPlayer: state.selectedPlayer,
         setSelectedPlayer,
-        getView: () => view,
-        getSelectedPlayer: () => selectedPlayer,
+        getView: () => state.view,
+        getSelectedPlayer: () => state.selectedPlayer,
       }}
     >
       {children}
