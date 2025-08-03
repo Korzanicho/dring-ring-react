@@ -1,9 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
 import './WheelView.scss';
-import LuckyWheel from "@/components/LuckyWheel/LuckyWheel";
+import LuckyWheel from "@/features/wheel/LuckyWheel/LuckyWheel";
 import { useGame } from '@/Context/GameContext';
-import TheButton from '@/components/TheButton/TheButton';
-import BackButton from '@/components/BackButton/BackButton';
+import { TheButton, BackButton } from '@/components';
 
 function WheelView() {
   const {

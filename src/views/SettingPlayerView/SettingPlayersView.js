@@ -1,6 +1,6 @@
-import TheButton from '@/components/TheButton/TheButton';
-import PlayersList from '@/components/PlayersList/PlayersList';
-import AddPlayerForm from "@/components/AddPlayerForm/AddPlayerForm";
+import { TheButton } from '@/components';
+import PlayersList from '@/features/players/PlayersList/PlayersList';
+import AddPlayerForm from "@/features/players/AddPlayerForm/AddPlayerForm";
 
 import { useGame } from '@/Context/GameContext';
 

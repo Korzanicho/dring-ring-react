@@ -2,9 +2,8 @@ import './PlayingView.scss';
 import { useEffect, useState } from 'react';
 import { useGame } from '@/Context/GameContext';
 
-import TheButton from '@/components/TheButton/TheButton';
-import BackButton from '@/components/BackButton/BackButton';
-import ChallengeDefault from '@/components/Challenges/ChallengeDefault/ChallengeDefault';
+import { TheButton, BackButton } from '@/components';
+import ChallengeDefault from '@/features/challenges/ChallengeDefault/ChallengeDefault';
 
 function PlayingView() {
 	const { getView, getRandomChallenge, setView, getSelectedPlayer } = useGame();

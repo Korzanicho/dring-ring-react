@@ -5,7 +5,7 @@ import { GameProvider } from './Context/GameContext';
 
 import WheelView from './views/WheelView/WheelView';
 import PlayingView from './views/PlayingView/PlayingView';
-import TheHeader from '@/components/layout/TheHeader/TheHeader';
+import { TheHeader } from '@/components';
 import CategoriesView from './views/CategoriesView/CategoriesView';
 import SettingPlayersView from './views/SettingPlayerView/SettingPlayersView';
 

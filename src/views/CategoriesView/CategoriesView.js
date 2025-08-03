@@ -4,9 +4,8 @@ import Button from 'react-bootstrap/Button';
 import buildApiUrl from '@/config/apiConfig';
 import { useEffect, useState } from 'react';
 import { useGame } from '@/Context/GameContext';
-import TheButton from '@/components/TheButton/TheButton';
-import BackButton from '@/components/BackButton/BackButton';
-import CategoriesList from '@/components/CategoriesList/CategoriesList';
+import { TheButton, BackButton } from '@/components';
+import CategoriesList from '@/features/categories/CategoriesList/CategoriesList';
 
 function CategoriesView() {
 	const { getView, setView, getSelectedCategories, setChallenges } = useGame();
