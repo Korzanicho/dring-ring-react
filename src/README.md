@@ -32,6 +32,12 @@ src/
 │   ├── CategoriesView/
 │   └── SettingPlayerView/
 ├── hooks/            # Custom React hooks
+│   ├── usePlayers.js
+│   ├── useGameState.js
+│   ├── useChallenges.js
+│   ├── useCategories.js
+│   ├── useGame.js
+│   └── index.js
 ├── utils/            # Utility functions
 ├── Context/          # Focused React Context providers
 │   ├── PlayersContext.js
@@ -71,6 +77,7 @@ Page-level components that compose features and components:
 - Use index files for clean imports: `import { TheButton } from '@/components'`
 - Feature components should be imported directly: `import LuckyWheel from '@/features/wheel/LuckyWheel/LuckyWheel'`
 - Views should import from features and components as needed
+- Custom hooks can be imported individually or from index: `import { usePlayers, useGameState } from '@/hooks'`
 - Context hooks can be imported individually or from index: `import { usePlayers, useGameState } from '@/Context'`
 
 ## Adding New Components
@@ -82,11 +89,20 @@ Page-level components that compose features and components:
 
 ## State Management
 
-This project uses a focused context architecture with separate contexts for different concerns:
+This project uses a **custom hooks architecture** built on top of focused contexts:
 
-- **PlayersContext**: Player management and operations
-- **GameStateContext**: UI state (views, selected player)
-- **ChallengesContext**: Challenge management and template resolution
+### Custom Hooks (Primary API)
+- **usePlayers**: Player management with localStorage persistence
+- **useGameState**: UI state management with computed values
+- **useChallenges**: Challenge management and template resolution
+- **useCategories**: Category selection with toggle functionality
+- **useGame**: Combined hook for high-level game operations
+
+### Context Layer (Internal)
+- **PlayersContext**: Player state and operations
+- **GameStateContext**: UI state management
+- **ChallengesContext**: Challenge state and logic
 - **CategoriesContext**: Category selection state
 
-See `src/Context/README.md` for detailed documentation. 
+See `src/hooks/README.md` for detailed documentation of the custom hooks API.
+See `src/Context/README.md` for detailed documentation of Context. 

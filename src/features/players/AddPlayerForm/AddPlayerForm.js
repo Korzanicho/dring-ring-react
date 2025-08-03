@@ -2,13 +2,13 @@ import './AddPlayerForm.scss'
 import iconAddPlayer from '@/assets/images/icon-add-player.svg'
 
 import {useState} from "react";
-import { usePlayers } from '@/Context/PlayersContext';
+import { usePlayers } from '@/hooks/usePlayers';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 function AddPlayerForm() {
-  const { addPlayer, getPlayers } = usePlayers();
+  const { addPlayer, isPlayerExists } = usePlayers();
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e) => {
@@ -29,7 +29,7 @@ function AddPlayerForm() {
             onChange={(e) => setInputValue(e.target.value)}
           />
           <Button
-            disabled={getPlayers().some(player => player.name === inputValue) || !inputValue}
+            disabled={isPlayerExists(inputValue) || !inputValue}
             type="submit"
             className="add-player-form__btn" title="Dodaj gracza"
           >

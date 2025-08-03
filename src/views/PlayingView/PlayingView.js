@@ -1,25 +1,25 @@
 import './PlayingView.scss';
 import { useEffect, useState } from 'react';
-import { useGameState } from '@/Context/GameStateContext';
-import { useChallenges } from '@/Context/ChallengesContext';
-import { usePlayers } from '@/Context/PlayersContext';
+import { useGameState } from '@/hooks/useGameState';
+import { useChallenges } from '@/hooks/useChallenges';
+import { usePlayers } from '@/hooks/usePlayers';
 
 import { TheButton, BackButton } from '@/components';
 import ChallengeDefault from '@/features/challenges/ChallengeDefault/ChallengeDefault';
 
 function PlayingView() {
-	const { getView, setView, getSelectedPlayer } = useGameState();
+	const { view, setView, getSelectedPlayer } = useGameState();
 	const { getRandomChallenge } = useChallenges();
 	const { getRandomPlayers } = usePlayers();
 
 	const [challenge, setChallenge] = useState({});
 
 	useEffect(() => {
-		if (getView() === 'playing') {
+		if (view === 'playing') {
 			handleGetRandomChallenge()
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [getView]);
+	}, [view]);
 
 	const handleGetRandomChallenge = () => {
 		const selectedPlayer = getSelectedPlayer();
@@ -27,7 +27,7 @@ function PlayingView() {
 		setChallenge(getRandomChallenge(challengeTypes, selectedPlayer, getRandomPlayers));
 	}
 
-	return getView() === 'playing' ? (
+	  return view === 'playing' ? (
     <div className="playing-view mt-3">
 			<BackButton view='categories' />
 

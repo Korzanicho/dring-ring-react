@@ -1,7 +1,9 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useReducer } from "react";
 import { categoriesReducer, CATEGORIES_ACTIONS } from './reducers/categoriesReducer';
 
 const CategoriesContext = createContext(undefined);
+
+export { CategoriesContext };
 
 export const CategoriesProvider = ({ children }) => {
   const [selectedCategories, dispatch] = useReducer(categoriesReducer, []);
@@ -38,10 +40,4 @@ export const CategoriesProvider = ({ children }) => {
   );
 };
 
-export const useCategories = () => {
-  const context = useContext(CategoriesContext);
-  if (context === undefined) {
-    throw new Error('useCategories must be used within a CategoriesProvider');
-  }
-  return context;
-}; 
+ 

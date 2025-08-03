@@ -1,15 +1,11 @@
 import './CategoriesList.scss'
-import { useCategories } from '@/Context/CategoriesContext';
+import { useCategories } from '@/hooks/useCategories';
 
 function CategoriesList(props) {
-	const { getSelectedCategories, addCategory, removeCategory } = useCategories();
+	const { isCategorySelected, toggleCategory } = useCategories();
 
 	const handleCategoryClick = (category) => {
-		const selectedCategories = getSelectedCategories();
-		const categoryIndex = selectedCategories.findIndex((selectedCategory) => selectedCategory.id === category.id);
-		
-		if (categoryIndex === -1) addCategory(category);
-		else removeCategory(category);
+		toggleCategory(category);
 	}
 
   return (
@@ -20,7 +16,7 @@ function CategoriesList(props) {
 					onClick={() => handleCategoryClick(category)}
 					className={[
 						'categories-list__card',
-						getSelectedCategories().findIndex((selectedCategory) => selectedCategory.id === category.id) !== -1 ? 'categories-list__card--active' : ''
+						isCategorySelected(category.id) ? 'categories-list__card--active' : ''
 					].join(' ')
 					}
 				>

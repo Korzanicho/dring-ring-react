@@ -1,7 +1,9 @@
-import { createContext, useContext, useReducer, useEffect } from "react";
+import { createContext, useReducer, useEffect } from "react";
 import { playersReducer, PLAYERS_ACTIONS } from './reducers/playersReducer';
 
 const PlayersContext = createContext(undefined);
+
+export { PlayersContext };
 
 export const PlayersProvider = ({ children }) => {
   const [players, dispatch] = useReducer(playersReducer, []);
@@ -62,10 +64,4 @@ export const PlayersProvider = ({ children }) => {
   );
 };
 
-export const usePlayers = () => {
-  const context = useContext(PlayersContext);
-  if (context === undefined) {
-    throw new Error('usePlayers must be used within a PlayersProvider');
-  }
-  return context;
-}; 
+ 

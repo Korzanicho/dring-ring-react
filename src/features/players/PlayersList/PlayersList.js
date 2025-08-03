@@ -3,14 +3,14 @@ import iconTrash from '@/assets/images/icon-trash.svg';
 
 
 import Button from 'react-bootstrap/Button';
-import { usePlayers } from '@/Context/PlayersContext';
+import { usePlayers } from '@/hooks/usePlayers';
 
 function PlayersList() {
-	const { getPlayers, removePlayer } = usePlayers();
+	const { getPlayers, removePlayer, hasPlayers } = usePlayers();
 
 	return (
 		<div className="players-list">
-			{getPlayers().length ? getPlayers().map((player) => (
+			{hasPlayers() ? getPlayers().map((player) => (
 				<div key={player.name} className='players-list__item'>
 					<span className='players-list__name-wrapper'>{player.name}</span>
 					<div className='players-list__btn-wrapper'>

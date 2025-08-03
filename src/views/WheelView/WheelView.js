@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react';
 import './WheelView.scss';
 import LuckyWheel from "@/features/wheel/LuckyWheel/LuckyWheel";
-import { usePlayers } from '@/Context/PlayersContext';
-import { useGameState } from '@/Context/GameStateContext';
+import { usePlayers } from '@/hooks/usePlayers';
+import { useGameState } from '@/hooks/useGameState';
 import { TheButton, BackButton } from '@/components';
 
 function WheelView() {
-  const { getView, setView, setSelectedPlayer, getSelectedPlayer } = useGameState();
+  const { view, setView, setSelectedPlayer, getSelectedPlayer } = useGameState();
   const { getPlayers } = usePlayers();
 
   const wheelData = getPlayers().map((player) => player.name);
@@ -52,7 +52,7 @@ function WheelView() {
     hasStoppedManually.current = true;
   };
 
-  return getView() === 'wheel' ? (
+  return view === 'wheel' ? (
     <div className="wheel-view">
       <BackButton view='categories' />
       <div

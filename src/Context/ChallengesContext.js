@@ -1,7 +1,9 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useReducer } from "react";
 import { challengesReducer, CHALLENGES_ACTIONS } from './reducers/challengesReducer';
 
 const ChallengesContext = createContext(undefined);
+
+export { ChallengesContext };
 
 export const ChallengesProvider = ({ children }) => {
   const [challenges, dispatch] = useReducer(challengesReducer, []);
@@ -64,10 +66,4 @@ export const ChallengesProvider = ({ children }) => {
   );
 };
 
-export const useChallenges = () => {
-  const context = useContext(ChallengesContext);
-  if (context === undefined) {
-    throw new Error('useChallenges must be used within a ChallengesProvider');
-  }
-  return context;
-}; 
+ 

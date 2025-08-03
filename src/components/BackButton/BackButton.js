@@ -1,5 +1,5 @@
 import './BackButton.scss'
-import { useGameState } from '@/Context/GameStateContext';
+import { useGameState } from '@/hooks/useGameState';
 import iconArrowLeft from '@/assets/images/icon-arrow-left.svg';
 
 function BackButton(props) {

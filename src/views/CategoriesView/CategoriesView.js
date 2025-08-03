@@ -3,25 +3,25 @@ import './CategoriesView.scss';
 import Button from 'react-bootstrap/Button';
 import buildApiUrl from '@/config/apiConfig';
 import { useEffect, useState } from 'react';
-import { useGameState } from '@/Context/GameStateContext';
-import { useCategories } from '@/Context/CategoriesContext';
-import { useChallenges } from '@/Context/ChallengesContext';
+import { useGameState } from '@/hooks/useGameState';
+import { useCategories } from '@/hooks/useCategories';
+import { useChallenges } from '@/hooks/useChallenges';
 import { TheButton, BackButton } from '@/components';
 import CategoriesList from '@/features/categories/CategoriesList/CategoriesList';
 
 function CategoriesView() {
-	const { getView, setView } = useGameState();
-	const { getSelectedCategories } = useCategories();
+	const { view, setView } = useGameState();
+	const categoriesHook = useCategories();
 	const { setChallenges } = useChallenges();
 
-	const [categories, setCategories] = useState({
+	const [categoriesData, setCategoriesData] = useState({
 		list: [],
 		isError: false,
     isLoading: false
 	});
 
 	const setLoading = (isLoading) => {
-		setCategories((prevState) => {
+		setCategoriesData((prevState) => {
 			return {
 				...prevState,
 				isLoading
@@ -39,14 +39,14 @@ function CategoriesView() {
 		setLoading(true);
 		try {
 			const response = await axios.get(buildApiUrl('categories'));
-			setCategories((prevState) => {
+			setCategoriesData((prevState) => {
 				return {
 					...prevState,
 					list: response.data
 				}
 			});
 		} catch (err) {
-			setCategories((prevState) => {
+			setCategoriesData((prevState) => {
 				return {
 					...prevState,
 					isError: true
@@ -64,7 +64,7 @@ function CategoriesView() {
 				buildApiUrl('challenges'),
 				{
 					params: {
-						categories: getSelectedCategories().map((category) => category.id).join(',')
+						categories: categoriesHook.getSelectedCategoryIds().join(',')
 					}
 				}
 			);
@@ -80,12 +80,12 @@ function CategoriesView() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-  return getView() === 'categories' ? (
+  return view === 'categories' ? (
     <div className="categories-view mt-3">
 			<BackButton view='settingPlayers' />
 			<div className="categories-view__center text-center">
-				{categories.isLoading ? <p>Ładowanie...</p> : null}
-				{categories.isError && !categories.isLoading && !categories.list.length ? (
+				{categoriesData.isLoading ? <p>Ładowanie...</p> : null}
+				{categoriesData.isError && !categoriesData.isLoading && !categoriesData.list.length ? (
 					<div>
 						<p>Wystąpił błąd!</p>
 
@@ -96,11 +96,11 @@ function CategoriesView() {
 				) : null}
 			</div>
 			<h2 className="categories-view__title">Wybierz Kategorie</h2>
-			<CategoriesList categories={categories.list} />
+			<CategoriesList categories={categoriesData.list} />
 			<TheButton
 				onClick={handleChangeView}
 				className="categories-view__play-btn"
-				disabled={!getSelectedCategories().length}
+				disabled={!categoriesHook.hasSelectedCategories()}
 			>
 				GRAJ
 			</TheButton> 
