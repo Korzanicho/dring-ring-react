@@ -1,24 +1,23 @@
 import './App.scss';
 
 import { AppProvider } from './Context/AppProvider';
+import { AppLayout } from '@/components';
 
 import WheelView from './views/WheelView/WheelView';
 import PlayingView from './views/PlayingView/PlayingView';
-import { TheHeader } from '@/components';
 import CategoriesView from './views/CategoriesView/CategoriesView';
 import SettingPlayersView from './views/SettingPlayerView/SettingPlayersView';
 
 function App() {
   return (
-    <div className="drink-ring">
-      <AppProvider>
-        <TheHeader />
+    <AppProvider>
+      <AppLayout>
         <SettingPlayersView />
         <CategoriesView />
         <WheelView />
         <PlayingView />
-      </AppProvider>
-    </div>
+      </AppLayout>
+    </AppProvider>
   );
 }
 

@@ -1,4 +1,4 @@
-import { TheButton } from '@/components';
+import { TheButton, PageContainer } from '@/components';
 import PlayersList from '@/features/players/PlayersList/PlayersList';
 import AddPlayerForm from "@/features/players/AddPlayerForm/AddPlayerForm";
 
@@ -14,7 +14,7 @@ function SettingPlayersView() {
   }
 
   return view === 'settingPlayers' ? (
-    <div className="setting-player-view">
+    <PageContainer className="setting-player-view">
 			<AddPlayerForm />
 			<PlayersList className="mt-3" />
 			<TheButton
@@ -23,7 +23,7 @@ function SettingPlayersView() {
 			>
 				DALEJ
 			</TheButton>
-    </div>
+    </PageContainer>
   ) : null;
 }
 

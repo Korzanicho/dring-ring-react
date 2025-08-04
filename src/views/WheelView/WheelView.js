@@ -3,7 +3,7 @@ import './WheelView.scss';
 import LuckyWheel from "@/features/wheel/LuckyWheel/LuckyWheel";
 import { usePlayers } from '@/hooks/usePlayers';
 import { useGameState } from '@/hooks/useGameState';
-import { TheButton, BackButton } from '@/components';
+import { TheButton, BackButton, PageContainer } from '@/components';
 
 function WheelView() {
   const { view, setView, setSelectedPlayer, getSelectedPlayer } = useGameState();
@@ -53,7 +53,7 @@ function WheelView() {
   };
 
   return view === 'wheel' ? (
-    <div className="wheel-view">
+    <PageContainer className="wheel-view">
       <BackButton view='categories' />
       <div
         className={`wheel-view__wheel ${isSelected ? 'wheel-view__wheel--hidden' : ''}`}
@@ -76,7 +76,7 @@ function WheelView() {
       >
         {isSpinning ? 'Pomiń' : 'Zakręć'}
       </TheButton>
-    </div>
+    </PageContainer>
   ) : null;
 }
 

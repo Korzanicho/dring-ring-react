@@ -23,8 +23,11 @@ src/
 ├── components/        # Reusable UI components
 │   ├── TheButton/
 │   ├── BackButton/
-│   ├── layout/
-│   │   └── TheHeader/
+│   ├── layout/        # Layout components
+│   │   ├── AppLayout/ # Main application layout wrapper
+│   │   ├── TheHeader/ # Application header
+│   │   ├── PageContainer/ # Page content container
+│   │   └── index.js
 │   └── index.js
 ├── views/            # Page-level components
 │   ├── WheelView/
@@ -63,7 +66,12 @@ Components that are specific to a particular feature or domain:
 Truly reusable UI components that can be used across different features:
 - **TheButton**: Reusable button component
 - **BackButton**: Navigation back button
-- **TheHeader**: Application header
+
+### Layout Components (`src/components/layout/`)
+Layout components that handle the overall application structure:
+- **AppLayout**: Main application wrapper with header, main content, and footer
+- **TheHeader**: Application header component
+- **PageContainer**: Page content wrapper for consistent spacing and responsive design
 
 ### Views (`src/views/`)
 Page-level components that compose features and components:
@@ -74,11 +82,29 @@ Page-level components that compose features and components:
 
 ## Import Guidelines
 
-- Use index files for clean imports: `import { TheButton } from '@/components'`
+- Use index files for clean imports: `import { TheButton, AppLayout } from '@/components'`
 - Feature components should be imported directly: `import LuckyWheel from '@/features/wheel/LuckyWheel/LuckyWheel'`
 - Views should import from features and components as needed
 - Custom hooks can be imported individually or from index: `import { usePlayers, useGameState } from '@/hooks'`
 - Context hooks can be imported individually or from index: `import { usePlayers, useGameState } from '@/Context'`
+
+## Layout Architecture
+
+The application uses a hierarchical layout structure:
+
+1. **AppLayout**: Main wrapper that provides the overall application structure
+   - Includes header, main content area
+   - Handles global styling and responsive design
+   - Provides consistent spacing and layout
+
+2. **PageContainer**: Content wrapper for individual pages
+   - Provides consistent max-width and padding
+   - Handles responsive design for different screen sizes
+   - Ensures proper content alignment
+
+3. **View Components**: Page-level components wrapped in PageContainer
+   - Each view is self-contained and focused on specific functionality
+   - Consistent layout and spacing across all pages
 
 ## Adding New Components
 

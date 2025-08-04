@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useGameState } from '@/hooks/useGameState';
 import { useCategories } from '@/hooks/useCategories';
 import { useChallenges } from '@/hooks/useChallenges';
-import { TheButton, BackButton } from '@/components';
+import { TheButton, BackButton, PageContainer } from '@/components';
 import CategoriesList from '@/features/categories/CategoriesList/CategoriesList';
 
 function CategoriesView() {
@@ -81,7 +81,7 @@ function CategoriesView() {
 	}, []);
 
   return view === 'categories' ? (
-    <div className="categories-view mt-3">
+    <PageContainer className="categories-view mt-3">
 			<BackButton view='settingPlayers' />
 			<div className="categories-view__center text-center">
 				{categoriesData.isLoading ? <p>Ładowanie...</p> : null}
@@ -103,8 +103,8 @@ function CategoriesView() {
 				disabled={!categoriesHook.hasSelectedCategories()}
 			>
 				GRAJ
-			</TheButton> 
-    </div>
+			</TheButton>
+    </PageContainer>
   ) : null;
 }
 
