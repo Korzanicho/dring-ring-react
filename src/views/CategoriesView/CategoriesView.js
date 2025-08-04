@@ -3,14 +3,14 @@ import './CategoriesView.scss';
 import Button from 'react-bootstrap/Button';
 import buildApiUrl from '@/config/apiConfig';
 import { useEffect, useState } from 'react';
-import { useGameState } from '@/hooks/useGameState';
+import { useNavigation } from '@/hooks/useNavigation';
 import { useCategories } from '@/hooks/useCategories';
 import { useChallenges } from '@/hooks/useChallenges';
 import { TheButton, BackButton, PageContainer } from '@/components';
 import CategoriesList from '@/features/categories/CategoriesList/CategoriesList';
 
 function CategoriesView() {
-	const { view, setView } = useGameState();
+	const { navigateToWheel } = useNavigation();
 	const categoriesHook = useCategories();
 	const { setChallenges } = useChallenges();
 
@@ -31,7 +31,7 @@ function CategoriesView() {
 
   const handleChangeView = () => {
 		fetchChallenges().then(() => {
-			setView('wheel');
+			navigateToWheel();
 		});
   }
 
@@ -80,9 +80,9 @@ function CategoriesView() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-  return view === 'categories' ? (
+    return (
     <PageContainer className="categories-view mt-3">
-			<BackButton view='settingPlayers' />
+			<BackButton view='/' />
 			<div className="categories-view__center text-center">
 				{categoriesData.isLoading ? <p>Ładowanie...</p> : null}
 				{categoriesData.isError && !categoriesData.isLoading && !categoriesData.list.length ? (
@@ -103,9 +103,9 @@ function CategoriesView() {
 				disabled={!categoriesHook.hasSelectedCategories()}
 			>
 				GRAJ
-			</TheButton>
+			</TheButton> 
     </PageContainer>
-  ) : null;
+  );
 }
 
 export default CategoriesView;

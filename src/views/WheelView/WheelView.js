@@ -3,10 +3,12 @@ import './WheelView.scss';
 import LuckyWheel from "@/features/wheel/LuckyWheel/LuckyWheel";
 import { usePlayers } from '@/hooks/usePlayers';
 import { useGameState } from '@/hooks/useGameState';
+import { useNavigation } from '@/hooks/useNavigation';
 import { TheButton, BackButton, PageContainer } from '@/components';
 
 function WheelView() {
-  const { view, setView, setSelectedPlayer, getSelectedPlayer } = useGameState();
+  const { setSelectedPlayer, getSelectedPlayer } = useGameState();
+  const { navigateToPlaying } = useNavigation();
   const { getPlayers } = usePlayers();
 
   const wheelData = getPlayers().map((player) => player.name);
@@ -43,7 +45,7 @@ function WheelView() {
 
     setTimeout(() => {
       setIsSelected(false);
-      setView('playing');
+      navigateToPlaying();
     }, 3000);
   };
 
@@ -52,9 +54,9 @@ function WheelView() {
     hasStoppedManually.current = true;
   };
 
-  return view === 'wheel' ? (
+  return (
     <PageContainer className="wheel-view">
-      <BackButton view='categories' />
+      <BackButton view='/categories' />
       <div
         className={`wheel-view__wheel ${isSelected ? 'wheel-view__wheel--hidden' : ''}`}
         onClick={isSpinning ? skipSpin : startSpin}
@@ -77,7 +79,7 @@ function WheelView() {
         {isSpinning ? 'Pomiń' : 'Zakręć'}
       </TheButton>
     </PageContainer>
-  ) : null;
+  );
 }
 
 export default WheelView;

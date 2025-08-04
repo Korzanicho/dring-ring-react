@@ -1,16 +1,16 @@
 import './BackButton.scss'
-import { useGameState } from '@/hooks/useGameState';
+import { useNavigation } from '@/hooks/useNavigation';
 import iconArrowLeft from '@/assets/images/icon-arrow-left.svg';
 
 function BackButton(props) {
-	const { setView } = useGameState();
+	const { navigateTo } = useNavigation();
 
 	return (
 		<img
 			alt="Powrót"
 			src={iconArrowLeft}
 			className="back-button"
-			onClick={() => setView(props.view)}
+			onClick={() => navigateTo(props.view)}
 		/>
 	);
 }

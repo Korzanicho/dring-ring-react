@@ -28,6 +28,10 @@ src/
 │   │   ├── TheHeader/ # Application header
 │   │   ├── PageContainer/ # Page content container
 │   │   └── index.js
+│   ├── guards/        # Route protection components
+│   │   ├── RouteGuard/
+│   │   ├── LoadingGuard/
+│   │   └── index.js
 │   └── index.js
 ├── views/            # Page-level components
 │   ├── WheelView/
@@ -39,7 +43,7 @@ src/
 │   ├── useGameState.js
 │   ├── useChallenges.js
 │   ├── useCategories.js
-│   ├── useGame.js
+│   ├── useNavigation.js
 │   └── index.js
 ├── utils/            # Utility functions
 ├── Context/          # Focused React Context providers
@@ -122,7 +126,6 @@ This project uses a **custom hooks architecture** built on top of focused contex
 - **useGameState**: UI state management with computed values
 - **useChallenges**: Challenge management and template resolution
 - **useCategories**: Category selection with toggle functionality
-- **useGame**: Combined hook for high-level game operations
 
 ### Context Layer (Internal)
 - **PlayersContext**: Player state and operations
@@ -131,4 +134,31 @@ This project uses a **custom hooks architecture** built on top of focused contex
 - **CategoriesContext**: Category selection state
 
 See `src/hooks/README.md` for detailed documentation of the custom hooks API.
-See `src/Context/README.md` for detailed documentation of Context. 
+See `src/Context/README.md` for detailed documentation of Context.
+
+## Route Protection & Security
+
+The application implements route guards to ensure proper access control:
+
+### Route Guards (`src/components/guards/`)
+
+- **RouteGuard**: Main component that checks access conditions before rendering protected routes
+- **LoadingGuard**: Loading component displayed while checking access permissions
+
+### Protection Rules
+
+1. **Categories View** (`/categories`): Requires at least one player to be added
+2. **Wheel View** (`/wheel`): Requires players and selected categories
+3. **Playing View** (`/playing`): Requires players, selected categories, and a selected player
+
+### Route Protection Implementation
+
+The route protection is implemented directly in the `RouteGuard` component using the existing hooks:
+- **usePlayers**: Checks if players exist
+- **useCategories**: Checks if categories are selected
+- **useGameState**: Checks if a player is selected
+
+### Automatic Redirects
+
+- Users trying to access protected routes without meeting requirements are automatically redirected to the appropriate page
+- Redirects use `replace` to prevent back button issues 

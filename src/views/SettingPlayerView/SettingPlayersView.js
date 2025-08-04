@@ -3,17 +3,17 @@ import PlayersList from '@/features/players/PlayersList/PlayersList';
 import AddPlayerForm from "@/features/players/AddPlayerForm/AddPlayerForm";
 
 import { usePlayers } from '@/hooks/usePlayers';
-import { useGameState } from '@/hooks/useGameState';
+import { useNavigation } from '@/hooks/useNavigation';
 
 function SettingPlayersView() {
-	const { view, setView } = useGameState();
+	const { navigateToCategories } = useNavigation();
 	const { hasPlayers } = usePlayers();
 
   const handleChangeView = () => {
-		setView('categories');
+		navigateToCategories();
   }
 
-  return view === 'settingPlayers' ? (
+  return (
     <PageContainer className="setting-player-view">
 			<AddPlayerForm />
 			<PlayersList className="mt-3" />
@@ -24,7 +24,7 @@ function SettingPlayersView() {
 				DALEJ
 			</TheButton>
     </PageContainer>
-  ) : null;
+  );
 }
 
 export default SettingPlayersView;

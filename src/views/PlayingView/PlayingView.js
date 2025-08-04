@@ -3,23 +3,23 @@ import { useEffect, useState } from 'react';
 import { useGameState } from '@/hooks/useGameState';
 import { useChallenges } from '@/hooks/useChallenges';
 import { usePlayers } from '@/hooks/usePlayers';
+import { useNavigation } from '@/hooks/useNavigation';
 
 import { TheButton, BackButton, PageContainer } from '@/components';
 import ChallengeDefault from '@/features/challenges/ChallengeDefault/ChallengeDefault';
 
 function PlayingView() {
-	const { view, setView, getSelectedPlayer } = useGameState();
+	const { getSelectedPlayer } = useGameState();
 	const { getRandomChallenge } = useChallenges();
 	const { getRandomPlayers } = usePlayers();
+	const { navigateToWheel } = useNavigation();
 
 	const [challenge, setChallenge] = useState({});
 
 	useEffect(() => {
-		if (view === 'playing') {
-			handleGetRandomChallenge()
-		}
+		handleGetRandomChallenge()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [view]);
+	}, []);
 
 	const handleGetRandomChallenge = () => {
 		const selectedPlayer = getSelectedPlayer();
@@ -27,9 +27,9 @@ function PlayingView() {
 		setChallenge(getRandomChallenge(challengeTypes, selectedPlayer, getRandomPlayers));
 	}
 
-	  return view === 'playing' ? (
+	return (
     <PageContainer className="playing-view mt-3">
-			<BackButton view='categories' />
+			<BackButton view='/categories' />
 
 			{challenge.type && (challenge.type.name === 'default' || challenge.type.name === 'all') ? (
 				<ChallengeDefault challenge={challenge} />
@@ -37,13 +37,13 @@ function PlayingView() {
 
 			<TheButton
 				type="submit"
-				onClick={() => setView('wheel')}
+				onClick={navigateToWheel}
 				className="playing-view__play-btn"
 			>
 				DALEJ
 			</TheButton>
-    </PageContainer>
-  ) : null;
+		</PageContainer>
+	);
 }
 
 export default PlayingView;

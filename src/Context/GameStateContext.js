@@ -6,16 +6,11 @@ const GameStateContext = createContext(undefined);
 export { GameStateContext };
 
 const initialState = {
-  view: 'settingPlayers',
   selectedPlayer: null
 };
 
 export const GameStateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(gameStateReducer, initialState);
-
-  const setView = (view) => {
-    dispatch({ type: GAME_STATE_ACTIONS.SET_VIEW, payload: view });
-  };
 
   const setSelectedPlayer = (player) => {
     dispatch({ type: GAME_STATE_ACTIONS.SET_SELECTED_PLAYER, payload: player });
@@ -24,11 +19,8 @@ export const GameStateProvider = ({ children }) => {
   return (
     <GameStateContext.Provider
       value={{
-        view: state.view,
-        setView,
         selectedPlayer: state.selectedPlayer,
         setSelectedPlayer,
-        getView: () => state.view,
         getSelectedPlayer: () => state.selectedPlayer,
       }}
     >
