@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
+import PropTypes from 'prop-types';
 import bottle from '@/assets/images/bottle.svg';
 
 const LuckyWheel = ({ players, fixedWinner, spinning, onFinish, initialPlayer }) => {
@@ -154,6 +155,19 @@ const LuckyWheel = ({ players, fixedWinner, spinning, onFinish, initialPlayer })
       </div>
     </div>
   );
+};
+
+LuckyWheel.propTypes = {
+	players: PropTypes.arrayOf(PropTypes.string).isRequired,
+	fixedWinner: PropTypes.string,
+	spinning: PropTypes.bool.isRequired,
+	onFinish: PropTypes.func.isRequired,
+	initialPlayer: PropTypes.string
+};
+
+LuckyWheel.defaultProps = {
+	fixedWinner: null,
+	initialPlayer: null
 };
 
 export default LuckyWheel;

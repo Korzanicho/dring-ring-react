@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import './PageContainer.scss';
 
 const PageContainer = ({ children, className = '' }) => {
@@ -6,6 +7,11 @@ const PageContainer = ({ children, className = '' }) => {
       {children}
     </div>
   );
+};
+
+PageContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string
 };
 
 export default PageContainer; 

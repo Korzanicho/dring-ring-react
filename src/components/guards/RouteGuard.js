@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
 import { usePlayers } from '@/hooks/usePlayers';
 import { useCategories } from '@/hooks/useCategories';
@@ -22,6 +23,13 @@ const RouteGuard = ({ children, requirePlayers = false, requireCategories = fals
   }
 
   return children;
+};
+
+RouteGuard.propTypes = {
+  children: PropTypes.node.isRequired,
+  requirePlayers: PropTypes.bool,
+  requireCategories: PropTypes.bool,
+  requireSelectedPlayer: PropTypes.bool
 };
 
 export default RouteGuard; 

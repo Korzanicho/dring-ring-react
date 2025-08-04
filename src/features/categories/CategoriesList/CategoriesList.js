@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
 import './CategoriesList.scss'
 import { useCategories } from '@/hooks/useCategories';
 
-const CategoriesList = React.memo(function CategoriesList(props) {
+const CategoriesList = React.memo(function CategoriesList({ categories }) {
 	const { isCategorySelected, toggleCategory } = useCategories();
 
 	const handleCategoryClick = useCallback((category) => {
@@ -11,7 +12,7 @@ const CategoriesList = React.memo(function CategoriesList(props) {
 
   return (
 		<div className="categories-list">
-			{props.categories.map((category) => (
+			{categories.map((category) => (
 				<div
 					key={category.id}
 					onClick={() => handleCategoryClick(category)}
@@ -27,5 +28,14 @@ const CategoriesList = React.memo(function CategoriesList(props) {
 		</div>
 	);
 });
+
+CategoriesList.propTypes = {
+	categories: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number.isRequired,
+			name: PropTypes.string.isRequired
+		})
+	).isRequired
+};
 
 export default CategoriesList;

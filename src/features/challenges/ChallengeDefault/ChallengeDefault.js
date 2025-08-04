@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import './ChallengeDefault.scss';
 
-function ChallengeDefault ({ challenge }) {
+function ChallengeDefault({ challenge }) {
 	return (
 		challenge ? (
 			<div className='challenge-default'>
@@ -19,5 +20,15 @@ function ChallengeDefault ({ challenge }) {
 		)
 	)
 }
+
+ChallengeDefault.propTypes = {
+	challenge: PropTypes.shape({
+		title: PropTypes.string.isRequired,
+		body: PropTypes.string.isRequired,
+		type: PropTypes.shape({
+			name: PropTypes.string.isRequired
+		})
+	})
+};
 
 export default ChallengeDefault;

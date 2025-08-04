@@ -1,14 +1,15 @@
 import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
 import './BackButton.scss'
 import { useNavigation } from '@/hooks/useNavigation';
 import iconArrowLeft from '@/assets/images/icon-arrow-left.svg';
 
-const BackButton = React.memo(function BackButton(props) {
+const BackButton = React.memo(function BackButton({ view }) {
 	const { navigateTo } = useNavigation();
 
 	const handleClick = useCallback(() => {
-		navigateTo(props.view);
-	}, [navigateTo, props.view]);
+		navigateTo(view);
+	}, [navigateTo, view]);
 
 	return (
 		<img
@@ -19,5 +20,9 @@ const BackButton = React.memo(function BackButton(props) {
 		/>
 	);
 });
+
+BackButton.propTypes = {
+	view: PropTypes.string.isRequired
+};
 
 export default BackButton;
