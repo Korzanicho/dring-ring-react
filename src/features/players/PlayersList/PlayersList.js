@@ -1,12 +1,16 @@
+import React, { useCallback } from 'react';
 import './PlayersList.scss';
 import iconTrash from '@/assets/images/icon-trash.svg';
-
 
 import Button from 'react-bootstrap/Button';
 import { usePlayers } from '@/hooks/usePlayers';
 
-function PlayersList() {
+const PlayersList = React.memo(function PlayersList() {
 	const { getPlayers, removePlayer, hasPlayers } = usePlayers();
+
+	const handleRemovePlayer = useCallback((playerName) => {
+		removePlayer(playerName);
+	}, [removePlayer]);
 
 	return (
 		<div className="players-list">
@@ -19,7 +23,7 @@ function PlayersList() {
 							variant=""
 							className="players-list__item__btn"
 							title="Usuń gracza"
-							onClick={() => removePlayer(player.name)}
+							onClick={() => handleRemovePlayer(player.name)}
 						>
 							<img src={iconTrash} alt="Usuń gracza" />
 						</Button>
@@ -28,6 +32,6 @@ function PlayersList() {
 			)) : <p className="text-center mt-3 color-text">No players yet!</p>}
 		</div>
 	);
-}
+});
 
 export default PlayersList;

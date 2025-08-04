@@ -161,4 +161,45 @@ The route protection is implemented directly in the `RouteGuard` component using
 ### Automatic Redirects
 
 - Users trying to access protected routes without meeting requirements are automatically redirected to the appropriate page
-- Redirects use `replace` to prevent back button issues 
+- Redirects use `replace` to prevent back button issues
+
+## Performance Optimizations
+
+The application implements several performance optimizations to ensure smooth user experience:
+
+### 1. Memoized Expensive Calculations (`useMemo`)
+
+**LuckyWheel Component:**
+- `sliceAngle`: Memoized calculation of wheel segment angles
+- `playerSegments`: Memoized player segment data with pre-calculated angles and colors
+- `drawWheel`: Memoized canvas drawing function
+
+**ChallengesContext:**
+- `resolveTemplateTags`: Memoized template tag resolution
+- `getRandomChallenge`: Memoized challenge filtering and processing
+
+**Context Providers:**
+- Context values are memoized to prevent unnecessary re-renders of consuming components
+
+### 2. Memoized Pure Components (`React.memo`)
+
+**List Components:**
+- `CategoriesList`: Memoized to prevent re-renders when props haven't changed
+- `PlayersList`: Memoized with optimized event handlers
+
+**UI Components:**
+- `TheButton`: Memoized button component with className support
+- `BackButton`: Memoized navigation button with optimized click handler
+
+### 3. Optimized Event Handlers (`useCallback`)
+
+- All event handlers are wrapped in `useCallback` to prevent unnecessary re-renders
+- Context functions are memoized to maintain stable references
+- Navigation functions are optimized for performance
+
+### 4. Benefits
+
+- **Reduced Re-renders**: Components only re-render when their dependencies actually change
+- **Faster Rendering**: Expensive calculations are cached and reused
+- **Better User Experience**: Smoother interactions, especially with the wheel animation
+- **Memory Efficiency**: Prevents unnecessary object creation and function recreation 

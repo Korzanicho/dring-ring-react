@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useMemo, useCallback } from "react";
 import { challengesReducer, CHALLENGES_ACTIONS } from './reducers/challengesReducer';
 
 const ChallengesContext = createContext(undefined);
@@ -8,11 +8,11 @@ export { ChallengesContext };
 export const ChallengesProvider = ({ children }) => {
   const [challenges, dispatch] = useReducer(challengesReducer, []);
 
-  const htmlEntities = (str) => {
+  const htmlEntities = useCallback((str) => {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  };
+  }, []);
 
-  const resolveTemplateTags = (text, selectedPlayer, getRandomPlayers) => {
+  const resolveTemplateTags = useCallback((text, selectedPlayer, getRandomPlayers) => {
     let newText = text;
     newText = htmlEntities(newText);
 
@@ -29,9 +29,9 @@ export const ChallengesProvider = ({ children }) => {
     });
 
     return newText;
-  };
+  }, [htmlEntities]);
 
-  const getRandomChallenge = (challengesTypes, selectedPlayer, getRandomPlayers) => {
+  const getRandomChallenge = useCallback((challengesTypes, selectedPlayer, getRandomPlayers) => {
     let filteredChallenges = challenges;
     if (challengesTypes.length) {
       filteredChallenges = challenges.filter((challenge) => {
@@ -47,20 +47,20 @@ export const ChallengesProvider = ({ children }) => {
       title: resolveTemplateTags(challenge.title, selectedPlayer, getRandomPlayers),
       body: resolveTemplateTags(challenge.body, selectedPlayer, getRandomPlayers)
     };
-  };
+  }, [challenges, resolveTemplateTags]);
 
-  const setChallenges = (newChallenges) => {
+  const setChallenges = useCallback((newChallenges) => {
     dispatch({ type: CHALLENGES_ACTIONS.SET_CHALLENGES, payload: newChallenges });
-  };
+  }, [dispatch]);
+
+  const contextValue = useMemo(() => ({
+    challenges,
+    setChallenges,
+    getRandomChallenge,
+  }), [challenges, setChallenges, getRandomChallenge]);
 
   return (
-    <ChallengesContext.Provider
-      value={{
-        challenges,
-        setChallenges,
-        getRandomChallenge,
-      }}
-    >
+    <ChallengesContext.Provider value={contextValue}>
       {children}
     </ChallengesContext.Provider>
   );

@@ -1,12 +1,13 @@
+import React, { useCallback } from 'react';
 import './CategoriesList.scss'
 import { useCategories } from '@/hooks/useCategories';
 
-function CategoriesList(props) {
+const CategoriesList = React.memo(function CategoriesList(props) {
 	const { isCategorySelected, toggleCategory } = useCategories();
 
-	const handleCategoryClick = (category) => {
+	const handleCategoryClick = useCallback((category) => {
 		toggleCategory(category);
-	}
+	}, [toggleCategory]);
 
   return (
 		<div className="categories-list">
@@ -25,6 +26,6 @@ function CategoriesList(props) {
 			))}
 		</div>
 	);
-}
+});
 
 export default CategoriesList;

@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect } from "react";
+import { createContext, useReducer, useEffect, useCallback, useMemo } from "react";
 import { playersReducer, PLAYERS_ACTIONS } from './reducers/playersReducer';
 
 const PlayersContext = createContext(undefined);
@@ -16,15 +16,15 @@ export const PlayersProvider = ({ children }) => {
     }
   }, []);
 
-  const addPlayer = (playerName) => {
+  const addPlayer = useCallback((playerName) => {
     dispatch({ type: PLAYERS_ACTIONS.ADD_PLAYER, payload: playerName });
-  };
+  }, [dispatch]);
 
-  const removePlayer = (playerName) => {
+  const removePlayer = useCallback((playerName) => {
     dispatch({ type: PLAYERS_ACTIONS.REMOVE_PLAYER, payload: playerName });
-  };
+  }, [dispatch]);
 
-  const getRandomPlayers = (quantity, exceptPlayers = []) => {
+  const getRandomPlayers = useCallback((quantity, exceptPlayers = []) => {
     const randomPlayers = [];
     const playersToUse = [...players];
 
@@ -42,23 +42,23 @@ export const PlayersProvider = ({ children }) => {
     } while (randomPlayers.length < quantity);
 
     return randomPlayers;
-  };
+  }, [players]);
 
-  const setPlayers = (newPlayers) => {
+  const setPlayers = useCallback((newPlayers) => {
     dispatch({ type: PLAYERS_ACTIONS.SET_PLAYERS, payload: newPlayers });
-  };
+  }, [dispatch]);
+
+  const contextValue = useMemo(() => ({
+    players,
+    addPlayer,
+    removePlayer,
+    setPlayers,
+    getRandomPlayers,
+    getPlayers: () => players,
+  }), [players, addPlayer, removePlayer, setPlayers, getRandomPlayers]);
 
   return (
-    <PlayersContext.Provider
-      value={{
-        players,
-        addPlayer,
-        removePlayer,
-        setPlayers,
-        getRandomPlayers,
-        getPlayers: () => players,
-      }}
-    >
+    <PlayersContext.Provider value={contextValue}>
       {children}
     </PlayersContext.Provider>
   );

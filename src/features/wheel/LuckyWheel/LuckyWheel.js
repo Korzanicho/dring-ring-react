@@ -1,11 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import bottle from '@/assets/images/bottle.svg';
 
 const LuckyWheel = ({ players, fixedWinner, spinning, onFinish, initialPlayer }) => {
   const canvasRef = useRef(null);
   const [angle, setAngle] = useState(0); // Początkowy kąt koła
   const [isSpinning, setIsSpinning] = useState(false);
-  const sliceAngle = 360 / players.length;
+  
+  const sliceAngle = useMemo(() => 360 / players.length, [players.length]);
+  
+  const playerSegments = useMemo(() => {
+    return players.map((player, index) => ({
+      player,
+      startAngle: (index * sliceAngle * Math.PI) / 180,
+      endAngle: ((index + 1) * sliceAngle * Math.PI) / 180,
+      textAngle: ((index * sliceAngle * Math.PI) / 180) + ((sliceAngle * Math.PI) / 180) / 2,
+      color: index % 2 === 0 ? "#008080" : "#005555"
+    }));
+  }, [players, sliceAngle]);
 
   useEffect(() => {
     drawWheel();
@@ -25,7 +36,7 @@ const LuckyWheel = ({ players, fixedWinner, spinning, onFinish, initialPlayer })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spinning]);
 
-  const drawWheel = () => {
+  const drawWheel = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -34,31 +45,21 @@ const LuckyWheel = ({ players, fixedWinner, spinning, onFinish, initialPlayer })
     const size = canvas.width / 2;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    players.forEach((player, index) => {
-      const startAngle = (index * sliceAngle * Math.PI) / 180;
-      const endAngle = ((index + 1) * sliceAngle * Math.PI) / 180;
-
+    playerSegments.forEach((segment) => {
       ctx.beginPath();
       ctx.moveTo(size, size);
-      ctx.arc(size, size, size, startAngle, endAngle);
-      ctx.fillStyle = index % 2 === 0 ? "#008080" : "#005555";
+      ctx.arc(size, size, size, segment.startAngle, segment.endAngle);
+      ctx.fillStyle = segment.color;
       ctx.fill();
       ctx.strokeStyle = "#E3991E";
       ctx.lineWidth = 3;
       ctx.stroke();
 
       // Dodajemy tekst gracza na sektorze
-      ctx.fillStyle = "#fff";
-      ctx.font = "22px Arial";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-
-      // Dodajemy tekst gracza na sektorze
       ctx.save(); // Zapisujemy aktualny stan kontekstu
 
-      const textAngle = startAngle + (endAngle - startAngle) / 2; // Środkowy kąt sektora
       ctx.translate(size, size); // Przenosimy układ współrzędnych na środek koła
-      ctx.rotate(textAngle); // Obracamy kontekst o kąt sektora
+      ctx.rotate(segment.textAngle); // Obracamy kontekst o kąt sektora
 
       ctx.fillStyle = "#fff";
       ctx.font = "22px Arial";
@@ -66,11 +67,11 @@ const LuckyWheel = ({ players, fixedWinner, spinning, onFinish, initialPlayer })
       ctx.textBaseline = "middle";
 
       // Rysujemy tekst na promieniu o długości 70% promienia koła
-      ctx.fillText(player, size * 0.6, 0);
+      ctx.fillText(segment.player, size * 0.6, 0);
 
       ctx.restore(); // Przywracamy pierwotny stan kontekstu
     });
-  };
+  }, [playerSegments]);
 
   const spinWheel = () => {
     if (isSpinning) return;
@@ -107,22 +108,22 @@ const LuckyWheel = ({ players, fixedWinner, spinning, onFinish, initialPlayer })
     requestAnimationFrame(animate);
   };
 
-  // Funkcja easing dla płynnego zatrzymania
-  const easeOutCubic = (t) => {
+  // Memoize utility functions
+  const easeOutCubic = useCallback((t) => {
     return 1 - Math.pow(1 - t, 3);
-  };
+  }, []);
 
-  const getAngleForPlayer = (player) => {
+  const getAngleForPlayer = useCallback((player) => {
     const index = players.indexOf(player);
     // Obliczamy kąt, aby gracz był na górze (0 stopni)
     return 360 - index * sliceAngle; // Nie dodajemy pełnych obrotów, bo to kąt początkowy
-  };
+  }, [players, sliceAngle]);
 
-  const getWinnerFromAngle = (angle) => {
+  const getWinnerFromAngle = useCallback((angle) => {
     const normalizedAngle = (360 - angle) % 360; // Normalizujemy kąt do zakresu 0-360
     const index = Math.floor(normalizedAngle / sliceAngle);
     return players[index];
-  };
+  }, [players, sliceAngle]);
 
   return (
     <div style={{ position: "relative", textAlign: "center" }}>
