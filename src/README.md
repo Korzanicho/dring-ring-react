@@ -214,4 +214,41 @@ The application implements PropTypes for runtime type checking and better code d
 - **Better Documentation**: PropTypes serve as component documentation
 - **IDE Support**: Better autocomplete and error detection
 - **Team Collaboration**: Clear contract for component usage
-- **Error Prevention**: Early detection of incorrect prop usage 
+- **Error Prevention**: Early detection of incorrect prop usage
+
+## Error Handling & Recovery
+
+The application implements comprehensive error handling through Error Boundaries:
+
+### Error Boundary Implementation (`src/components/ErrorBoundary/`)
+- **ErrorBoundary**: Main error boundary component that catches JavaScript errors in the component tree
+- **Global Error Boundary**: Wraps the entire application in `App.js`
+- **Feature-Specific Boundaries**: Protects complex components like `LuckyWheel`
+
+### Error Boundary Features
+
+- **Graceful Degradation**: Displays user-friendly error messages instead of crashing
+- **Recovery Options**: Provides "Try Again" and "Refresh Page" buttons
+- **Development Mode**: Shows detailed error information in development
+- **Production Safe**: Hides technical details in production builds
+
+### Error Boundary Placement
+
+1. **App-Level**: Catches errors in the entire application
+2. **Feature-Level**: Protects complex components (e.g., canvas operations in LuckyWheel)
+3. **Context-Level**: Handles errors from context providers and hooks
+
+### Error Types Handled
+
+- **JavaScript Errors**: Runtime errors in component logic
+- **Context Errors**: Errors from improper hook usage
+- **Canvas Errors**: Rendering errors in LuckyWheel component
+- **API Errors**: Network and data processing errors
+- **State Errors**: Errors in state management and updates
+
+### Benefits
+
+- **User Experience**: Prevents app crashes and provides recovery options
+- **Debugging**: Detailed error information in development
+- **Reliability**: Graceful handling of unexpected errors
+- **Maintenance**: Better error tracking and reporting capabilities 
