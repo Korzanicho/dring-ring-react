@@ -39,12 +39,18 @@ function CategoriesView() {
 		setLoading(true);
 		try {
 			const response = await axios.get(buildApiUrl('categories'));
-			setCategoriesData((prevState) => {
-				return {
-					...prevState,
-					list: response.data
-				}
-			});
+
+			const defaultSelectedCategories = response.data.filter(category => category.is_selected);
+			if (defaultSelectedCategories.length > 0) {
+				categoriesHook.setSelectedCategories(defaultSelectedCategories);
+			} else {
+				categoriesHook.clearCategories();
+			}
+
+			setCategoriesData((prevState) => ({
+				...prevState,
+				list: response.data
+			}));
 		} catch (err) {
 			setCategoriesData((prevState) => {
 				return {
