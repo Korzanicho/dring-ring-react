@@ -47,9 +47,10 @@ function CategoriesView() {
 				categoriesHook.clearCategories();
 			}
 
+			// Sort categories by display_order before setting state
 			setCategoriesData((prevState) => ({
 				...prevState,
-				list: response.data
+				list: [...response.data].sort((a, b) => a.display_order - b.display_order)
 			}));
 		} catch (err) {
 			setCategoriesData((prevState) => {
