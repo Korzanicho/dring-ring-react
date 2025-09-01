@@ -1,21 +1,35 @@
-import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
-import PropTypes from 'prop-types';
-import bottle from '@/assets/images/bottle.svg';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
+import PropTypes from "prop-types";
+import bottle from "@/assets/images/bottle.svg";
+import { playSound, stopSound, Sounds } from "@/utils/soundUtils";
 
-const LuckyWheel = ({ players, fixedWinner, spinning, onFinish, initialPlayer }) => {
+const LuckyWheel = ({
+  players,
+  fixedWinner,
+  spinning,
+  onFinish,
+  initialPlayer,
+}) => {
   const canvasRef = useRef(null);
   const [angle, setAngle] = useState(0); // Początkowy kąt koła
   const [isSpinning, setIsSpinning] = useState(false);
-  
+  const SPIN_SOUND_LENGTH = 14;
   const sliceAngle = useMemo(() => 360 / players.length, [players.length]);
-  
+
   const playerSegments = useMemo(() => {
     return players.map((player, index) => ({
       player,
       startAngle: (index * sliceAngle * Math.PI) / 180,
       endAngle: ((index + 1) * sliceAngle * Math.PI) / 180,
-      textAngle: ((index * sliceAngle * Math.PI) / 180) + ((sliceAngle * Math.PI) / 180) / 2,
-      color: index % 2 === 0 ? "#008080" : "#005555"
+      textAngle:
+        (index * sliceAngle * Math.PI) / 180 + (sliceAngle * Math.PI) / 180 / 2,
+      color: index % 2 === 0 ? "#008080" : "#005555",
     }));
   }, [players, sliceAngle]);
 
@@ -78,10 +92,15 @@ const LuckyWheel = ({ players, fixedWinner, spinning, onFinish, initialPlayer })
     if (isSpinning) return;
     setIsSpinning(true);
 
-    const duration = 3000;
+    // random duration from 2000 to 5000
+    const duration = Math.floor(Math.random() * 3000) + 2000;
+    playSound(Sounds.WHEEL_SPIN, {
+      startTime: Math.max(0, SPIN_SOUND_LENGTH - duration / 1000 + 1),
+    });
+
     const finalAngle = fixedWinner
       ? getAngleForPlayer(fixedWinner)
-      : Math.random() * 360 + 720; // Dodajemy kilka pełnych obrotów
+      : Math.random() * 360 + 720; // Add a few full rotations
 
     let start = null;
 
@@ -98,10 +117,11 @@ const LuckyWheel = ({ players, fixedWinner, spinning, onFinish, initialPlayer })
         // Zatrzymanie koła
         const finalStoppedAngle = finalAngle % 360;
         setAngle(finalStoppedAngle);
+        stopSound(Sounds.WHEEL_SPIN);
 
         // Wskazanie zwycięzcy
         const winner = getWinnerFromAngle(finalStoppedAngle);
-        if (onFinish && spinning) onFinish(winner)
+        if (onFinish && spinning) onFinish(winner);
         setIsSpinning(false);
       }
     };
@@ -114,21 +134,33 @@ const LuckyWheel = ({ players, fixedWinner, spinning, onFinish, initialPlayer })
     return 1 - Math.pow(1 - t, 3);
   }, []);
 
-  const getAngleForPlayer = useCallback((player) => {
-    const index = players.indexOf(player);
-    // Obliczamy kąt, aby gracz był na górze (0 stopni)
-    return 360 - index * sliceAngle; // Nie dodajemy pełnych obrotów, bo to kąt początkowy
-  }, [players, sliceAngle]);
+  const getAngleForPlayer = useCallback(
+    (player) => {
+      const index = players.indexOf(player);
+      // Obliczamy kąt, aby gracz był na górze (0 stopni)
+      return 360 - index * sliceAngle; // Nie dodajemy pełnych obrotów, bo to kąt początkowy
+    },
+    [players, sliceAngle]
+  );
 
-  const getWinnerFromAngle = useCallback((angle) => {
-    const normalizedAngle = (360 - angle) % 360; // Normalizujemy kąt do zakresu 0-360
-    const index = Math.floor(normalizedAngle / sliceAngle);
-    return players[index];
-  }, [players, sliceAngle]);
+  const getWinnerFromAngle = useCallback(
+    (angle) => {
+      const normalizedAngle = (360 - angle) % 360; // Normalizujemy kąt do zakresu 0-360
+      const index = Math.floor(normalizedAngle / sliceAngle);
+      return players[index];
+    },
+    [players, sliceAngle]
+  );
 
   return (
     <div style={{ position: "relative", textAlign: "center" }}>
-      <div style={{ position: "relative", display: "inline-block", overflow: "hidden" }}>
+      <div
+        style={{
+          position: "relative",
+          display: "inline-block",
+          overflow: "hidden",
+        }}
+      >
         <img
           src={bottle}
           alt="Pointer"
@@ -158,16 +190,16 @@ const LuckyWheel = ({ players, fixedWinner, spinning, onFinish, initialPlayer })
 };
 
 LuckyWheel.propTypes = {
-	players: PropTypes.arrayOf(PropTypes.string).isRequired,
-	fixedWinner: PropTypes.string,
-	spinning: PropTypes.bool.isRequired,
-	onFinish: PropTypes.func.isRequired,
-	initialPlayer: PropTypes.string
+  players: PropTypes.arrayOf(PropTypes.string).isRequired,
+  fixedWinner: PropTypes.string,
+  spinning: PropTypes.bool.isRequired,
+  onFinish: PropTypes.func.isRequired,
+  initialPlayer: PropTypes.string,
 };
 
 LuckyWheel.defaultProps = {
-	fixedWinner: null,
-	initialPlayer: null
+  fixedWinner: null,
+  initialPlayer: null,
 };
 
 export default LuckyWheel;

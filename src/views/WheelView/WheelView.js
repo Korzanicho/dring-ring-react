@@ -1,10 +1,11 @@
-import React, {useState, useEffect, useRef} from 'react';
-import './WheelView.scss';
+import React, { useState, useEffect, useRef } from "react";
+import "./WheelView.scss";
 import LuckyWheel from "@/features/wheel/LuckyWheel/LuckyWheel";
-import { usePlayers } from '@/hooks/usePlayers';
-import { useGameState } from '@/hooks/useGameState';
-import { useNavigation } from '@/hooks/useNavigation';
-import { TheButton, BackButton, PageContainer } from '@/components';
+import { usePlayers } from "@/hooks/usePlayers";
+import { useGameState } from "@/hooks/useGameState";
+import { useNavigation } from "@/hooks/useNavigation";
+import { TheButton, BackButton, PageContainer } from "@/components";
+import { stopSound, Sounds } from "@/utils/soundUtils"; // Import sound utilities
 
 function WheelView() {
   const { setSelectedPlayer, getSelectedPlayer } = useGameState();
@@ -12,7 +13,7 @@ function WheelView() {
   const { getPlayers } = usePlayers();
 
   const wheelData = getPlayers().map((player) => player.name);
-  wheelData.push('Wszyscy');
+  wheelData.push("Wszyscy");
 
   const [initialPlayer, setInitialPlayer] = useState(null);
   const [isSpinning, setIsSpinning] = useState(false);
@@ -36,9 +37,14 @@ function WheelView() {
   const handleStopSpinning = (winnerName) => {
     if (hasStoppedManually.current) return;
 
-    setInitialPlayer(getPlayers().find((p) => p.name === winnerName)?.name || 'Wszyscy');
-    if (winnerName === 'Wszyscy') setSelectedPlayer({ name: 'Wszyscy' });
-    else setSelectedPlayer(getPlayers().find((player) => player.name === winnerName));
+    setInitialPlayer(
+      getPlayers().find((p) => p.name === winnerName)?.name || "Wszyscy"
+    );
+    if (winnerName === "Wszyscy") setSelectedPlayer({ name: "Wszyscy" });
+    else
+      setSelectedPlayer(
+        getPlayers().find((player) => player.name === winnerName)
+      );
 
     setIsSelected(true);
     setIsSpinning(false);
@@ -49,16 +55,25 @@ function WheelView() {
     }, 3000);
   };
 
+  useEffect(() => {
+    return () => {
+      stopSound(Sounds.WHEEL_SPIN);
+    };
+  }, []);
+
   const skipSpin = () => {
-    handleStopSpinning(fixedWinner);
+    stopSound(Sounds.WHEEL_SPIN);
     hasStoppedManually.current = true;
+    handleStopSpinning(fixedWinner);
   };
 
   return (
     <PageContainer className="wheel-view">
-      <BackButton view='/categories' />
+      <BackButton view="/categories" />
       <div
-        className={`wheel-view__wheel ${isSelected ? 'wheel-view__wheel--hidden' : ''}`}
+        className={`wheel-view__wheel ${
+          isSelected ? "wheel-view__wheel--hidden" : ""
+        }`}
         onClick={isSpinning ? skipSpin : startSpin}
       >
         <LuckyWheel
@@ -69,14 +84,18 @@ function WheelView() {
           onFinish={handleStopSpinning}
         />
       </div>
-      <div className={`wheel-view__selected ${isSelected ? 'wheel-view__selected--active' : ''}`}>
+      <div
+        className={`wheel-view__selected ${
+          isSelected ? "wheel-view__selected--active" : ""
+        }`}
+      >
         <span>{getSelectedPlayer()?.name}</span>
       </div>
       <TheButton
-        className='wheel-view__btn'
+        className="wheel-view__btn"
         onClick={isSpinning ? skipSpin : startSpin}
       >
-        {isSpinning ? 'Pomiń' : 'Zakręć'}
+        {isSpinning ? "Pomiń" : "Zakręć"}
       </TheButton>
     </PageContainer>
   );
